@@ -1,0 +1,33 @@
+.source {
+  width: 50%;
+}
+
+.url {
+  width: 50%;
+}
+
+.button-row {
+  display: table-cell;
+  width: 490px;
+  margin: 8px 8px 8px 0;
+}
+
+.field-row {
+  display: table-cell;
+  width: 450px;
+  margin: 8px 8px 8px 0;
+}
+
+mat-form-field {
+  margin: 0px 10px 0px 10px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.parameters-container {
+  margin-left: 10px;
+}

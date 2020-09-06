@@ -1,0 +1,337 @@
+<div class="panel-header panel-header-sm">
+</div>
+<br><br>
+<div class="main-content">
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="General Settings"><mat-grid-list cols="3" rowHeight="3:1">
+      <form class="advanced-settings">
+        <mat-grid-tile>
+          <mat-form-field class="similarity-requests">
+            <mat-label>Similarity requests:</mat-label>
+            <input matInput type="number"  value="{{config.linkage_config.similarity_requests}}">
+          </mat-form-field>
+        </mat-grid-tile>
+
+
+        <mat-grid-tile>
+          <mat-form-field class="candidate-requests">
+            <mat-label>Candidate requests:</mat-label>
+            <input matInput type="number" placeholder="25" value="25">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <mat-label>String similarity:</mat-label>
+            <mat-slider
+              thumbLabel
+              [displayWith]="formatLabel"
+              tickInterval="1"
+              min="0"
+              max="10"></mat-slider>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+
+            <mat-label>Record similarity:</mat-label>
+            <mat-slider
+              thumbLabel
+              [displayWith]="formatLabel"
+              tickInterval="1"
+              min="0"
+              max="10"></mat-slider>
+
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+
+            <mat-label>Distribution variance:</mat-label>
+          <mat-slider
+            thumbLabel
+            step="0.1"
+            min="0"
+            value="0.5"
+            max="1"></mat-slider>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <mat-label>Error threshold:</mat-label>
+            <mat-slider
+              thumbLabel
+              step="0.1"
+              min="0"
+              value="0.5"
+              max="1"></mat-slider>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="traversal-depth">
+            <mat-label>Traversal depth:</mat-label>
+            <input matInput type="number" placeholder="2" value="2">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="functionality-threshold">
+            <mat-label>Functionality threshold:</mat-label>
+            <input matInput type="number" placeholder="99" value="99">
+          </mat-form-field>
+        </mat-grid-tile>
+      </form>
+    </mat-grid-list>
+
+      <br>
+      <div class="container">
+      <button mat-stroked-button color="primary">Save</button>
+      </div>
+    </mat-tab>
+    <mat-tab label="APIs">
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              scigraphDOI
+            </mat-panel-title>
+            <mat-panel-description>
+              Click to change the settings
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="source">
+            <mat-label>Label:</mat-label>
+            <input matInput type="text" placeholder="2" value="scigraphDOI">
+          </mat-form-field><br>
+          <mat-form-field class="url">
+            <mat-label>Name: </mat-label>
+            <input matInput type="text" placeholder="2" value="Springer SciGraph">
+          </mat-form-field><br>
+          <mat-form-field class="url">
+            <mat-label>URL: </mat-label>
+            <input matInput type="text" placeholder="2" value="http://api.springernature.com/metadata/{format}?q=doi:{q}&api_key={key}">
+          </mat-form-field><br>
+          <mat-label>Parameters: </mat-label>
+          <div class="parameters-container"><mat-form-field class="url">
+           <mat-label>Name:</mat-label>
+            <input matInput type="text" placeholder="2" value="q">
+          </mat-form-field>
+          <mat-form-field class="url">
+            <mat-label>Status:</mat-label>
+            <input matInput type="text" placeholder="2" value="required">
+          </mat-form-field>
+          <mat-form-field class="url">
+            <mat-label>Type:</mat-label>
+            <input matInput type="text" width="50%" placeholder="2" value="https://dblp.org/rdf/schema-2017-04-18#Publication">
+          </mat-form-field>
+          </div>
+          <mat-form-field class="url">
+            <mat-label>Format: </mat-label>
+            <input matInput type="text" placeholder="2" value="json">
+          </mat-form-field>
+
+          <br>
+          <div class="button-row">
+            <button mat-stroked-button color="primary">Save</button>
+            <button mat-stroked-button color="warn">Remove</button>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              s2arxiv
+            </mat-panel-title>
+            <mat-panel-description>
+              Click to change the settings
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="source">
+            <mat-label>Label:</mat-label>
+            <input matInput type="text" placeholder="2" value="s2arxiv">
+          </mat-form-field><br>
+          <mat-form-field class="url">
+            <mat-label>Name: </mat-label>
+            <input matInput type="text" placeholder="2" value="Semantic Scholar usin ArXiv ID">
+          </mat-form-field><br>
+          <mat-form-field class="url">
+            <mat-label>URL: </mat-label>
+            <input matInput type="text" placeholder="2" value="https://api.semanticscholar.org/v1/paper/arXiv:{q}">
+          </mat-form-field><br>
+          <mat-label>Parameters: </mat-label>
+          <div class="parameters-container"><mat-form-field class="url">
+            <mat-label>Name:</mat-label>
+            <input matInput type="text" placeholder="2" value="q">
+          </mat-form-field>
+            <mat-form-field class="url">
+              <mat-label>Status:</mat-label>
+              <input matInput type="text" placeholder="2" value="required">
+            </mat-form-field>
+            <mat-form-field class="url">
+              <mat-label>Type:</mat-label>
+              <input matInput type="text" width="50%" placeholder="2" value="https://dblp.org/rdf/schema-2017-04-18#Publication">
+            </mat-form-field>
+          </div>
+          <mat-form-field class="url">
+            <mat-label>Format: </mat-label>
+            <input matInput type="text" placeholder="2" value="json">
+          </mat-form-field>
+
+          <br>
+          <div class="button-row">
+            <button mat-stroked-button color="primary">Save</button>
+            <button mat-stroked-button color="warn">Remove</button>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              crossrefDOI
+            </mat-panel-title>
+            <mat-panel-description>
+              Click to change the settings
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="source">
+            <mat-label>Label:</mat-label>
+            <input matInput type="text" placeholder="2" value="crossrefDOI">
+          </mat-form-field><br>
+          <mat-form-field class="url">
+            <mat-label>Name: </mat-label>
+            <input matInput type="text" placeholder="2" value="CrossRef DOI API">
+          </mat-form-field><br>
+          <mat-form-field class="url">
+            <mat-label>URL: </mat-label>
+            <input matInput type="text" placeholder="2" value="https://api.crossref.org/works/{doi}">
+          </mat-form-field><br>
+          <mat-label>Parameters: </mat-label>
+          <div class="parameters-container"><mat-form-field class="url">
+            <mat-label>Name:</mat-label>
+            <input matInput type="text" placeholder="2" value="doi">
+          </mat-form-field>
+            <mat-form-field class="url">
+              <mat-label>Status:</mat-label>
+              <input matInput type="text" placeholder="2" value="required">
+            </mat-form-field>
+            <mat-form-field class="url">
+              <mat-label>Type:</mat-label>
+              <input matInput type="text" width="50%" placeholder="2" value="https://dblp.org/rdf/schema-2017-04-18#Publication">
+            </mat-form-field>
+          </div>
+          <mat-form-field class="url">
+            <mat-label>Format: </mat-label>
+            <input matInput type="text" placeholder="2" value="json">
+          </mat-form-field>
+
+          <br>
+          <div class="button-row">
+            <button mat-stroked-button color="primary">Save</button>
+            <button mat-stroked-button color="warn">Remove</button>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              arxiv
+            </mat-panel-title>
+            <mat-panel-description>
+              Click to change the settings
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="source">
+            <mat-label>Label:</mat-label>
+            <input matInput type="text" placeholder="2" value="arxiv">
+          </mat-form-field><br>
+          <mat-form-field class="url">
+            <mat-label>Name: </mat-label>
+            <input matInput type="text" placeholder="2" value="arXiv">
+          </mat-form-field><br>
+          <mat-form-field class="url">
+            <mat-label>URL: </mat-label>
+            <input matInput type="text" placeholder="2" value="http://export.arxiv.org/api/query?search_query=id:{doi}">
+          </mat-form-field><br>
+          <mat-label>Parameters: </mat-label>
+          <div class="parameters-container"><mat-form-field class="url">
+            <mat-label>Name:</mat-label>
+            <input matInput type="text" placeholder="2" value="doi">
+          </mat-form-field>
+            <mat-form-field class="url">
+              <mat-label>Status:</mat-label>
+              <input matInput type="text" placeholder="2" value="required">
+            </mat-form-field>
+            <mat-form-field class="url">
+              <mat-label>Type:</mat-label>
+              <input matInput type="text" width="50%" placeholder="2" value="https://dblp.org/rdf/schema-2017-04-18#Publication">
+            </mat-form-field>
+            <mat-form-field class="url">
+              <mat-label>Filter:</mat-label>
+              <input matInput type="text" width="50%" placeholder="2" value="https://dblp.org/rdf/schema-2017-04-18#arxivKey">
+            </mat-form-field>
+          </div>
+          <mat-form-field class="url">
+            <mat-label>Format: </mat-label>
+            <input matInput type="text" placeholder="2" value="json">
+          </mat-form-field>
+
+          <br>
+          <div class="button-row">
+            <button mat-stroked-button color="primary">Save</button>
+            <button mat-stroked-button color="warn">Remove</button>
+          </div>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+
+      <button mat-stroked-button color="primary">Add</button>
+    </mat-tab>
+    <mat-tab label="Databases">
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              dblp
+            </mat-panel-title>
+            <mat-panel-description>
+              Click to change the settings
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="source">
+            <mat-label>Source:</mat-label>
+            <input matInput type="text" placeholder="2" value="C:/Databases/dblp-2020-04-28/dblp-2020-04-28.nt">
+          </mat-form-field><br>
+          <mat-form-field class="url">
+            <mat-label>URL: </mat-label>
+            <input matInput type="text" placeholder="2" value="C:/Databases/dblp-2020-04-28/tdb/">
+          </mat-form-field>
+          <br>
+          <div class="button-row">
+          <button mat-stroked-button color="primary">Save</button>
+          <button mat-stroked-button color="warn">Remove</button>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              moviedb
+            </mat-panel-title>
+            <mat-panel-description>
+              Click to change the settings
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="source">
+            <mat-label>Source:</mat-label>
+            <input matInput type="text" placeholder="2" value="C:/Databases/linked_mdb/fixed_linkedmdb.nt">
+          </mat-form-field><br>
+          <mat-form-field class="url">
+            <mat-label>URL: </mat-label>
+            <input matInput type="text" placeholder="2" value="C:/Databases/linked_mdb/tdb">
+          </mat-form-field>
+          <br>
+          <div class="button-row">
+            <button mat-stroked-button color="primary">Save</button>
+            <button mat-stroked-button color="warn">Remove</button>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <button mat-stroked-button color="primary">Add</button>
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>
