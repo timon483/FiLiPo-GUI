@@ -3,8 +3,100 @@
 <br><br>
 <div class="main-content">
   <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="General Settings"><mat-grid-list cols="3" rowHeight="3:1">
-      <form class="advanced-settings">
+
+    <mat-tab label="Global Settings">
+
+      <mat-grid-list cols="4" rowHeight="3:1">
+
+        <mat-grid-tile>
+          <mat-form-field class="logpath">
+            <mat-label>Logpath:</mat-label>
+            <input matInput type="text"  value="{{config.globals.logpath}}">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="outpath">
+            <mat-label>Outpath:</mat-label>
+            <input matInput type="text"  value="{{config.globals.outpath}}">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="dbpath">
+            <mat-label>Dbpath:</mat-label>
+            <input matInput type="text"  value="{{config.globals.dbpath}}">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="scpath">
+            <mat-label>Scpath:</mat-label>
+            <input matInput type="text"  value="{{config.globals.scpath}}">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="secretpath">
+            <mat-label>Secret path:</mat-label>
+            <input matInput type="text"  value="{{config.globals.secretpath}}">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="ipc">
+            <mat-label>IPC:</mat-label>
+            <input matInput type="text"  value="{{config.globals.ipc}}">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="memory">
+            <mat-label>Memory:</mat-label>
+            <input matInput type="text"  value="{{config.globals.memory}}">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="timeout">
+            <mat-label>Timeout:</mat-label>
+            <input matInput type="text"  value="{{config.globals.timeout}}">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <mat-label>Mode: </mat-label>
+            <mat-slider
+              thumbLabel
+              step="1"
+              min="0"
+              max="3"
+              value="{{config.globals.mode}}"></mat-slider>
+        </mat-grid-tile>
+
+       <mat-grid-tile>
+            <mat-label>Log level:</mat-label>
+            <mat-slider
+              thumbLabel
+              step="1"
+              min="0"
+              max="4"
+              value="{{config.globals.loglevel}}"></mat-slider>
+
+        </mat-grid-tile>
+
+      </mat-grid-list>
+      <br>
+      <div class="container">
+        <button mat-stroked-button color="primary">Save</button>
+      </div>
+
+    </mat-tab>
+
+    <mat-tab label="Linkage configuration">
+      <mat-grid-list cols="3" rowHeight="3:1">
+
+
         <mat-grid-tile>
           <mat-form-field class="similarity-requests">
             <mat-label>Similarity requests:</mat-label>
@@ -16,7 +108,7 @@
         <mat-grid-tile>
           <mat-form-field class="candidate-requests">
             <mat-label>Candidate requests:</mat-label>
-            <input matInput type="number" placeholder="25" value="25">
+            <input matInput type="number" placeholder="25" value="{{config.linkage_config.candidate_requests}}">
           </mat-form-field>
         </mat-grid-tile>
 
@@ -24,10 +116,10 @@
             <mat-label>String similarity:</mat-label>
             <mat-slider
               thumbLabel
-              [displayWith]="formatLabel"
-              tickInterval="1"
+              step="0.1"
               min="0"
-              max="10"></mat-slider>
+              max="1"
+              value="{{config.linkage_config.string_similarity}}"></mat-slider>
         </mat-grid-tile>
 
         <mat-grid-tile>
@@ -35,10 +127,10 @@
             <mat-label>Record similarity:</mat-label>
             <mat-slider
               thumbLabel
-              [displayWith]="formatLabel"
-              tickInterval="1"
+              step="0.1"
               min="0"
-              max="10"></mat-slider>
+              max="1"
+              value="{{config.linkage_config.record_similarity}}"></mat-slider>
 
         </mat-grid-tile>
 
@@ -49,7 +141,7 @@
             thumbLabel
             step="0.1"
             min="0"
-            value="0.5"
+            value="{{config.linkage_config.distribution_variance}}"
             max="1"></mat-slider>
         </mat-grid-tile>
 
@@ -59,24 +151,53 @@
               thumbLabel
               step="0.1"
               min="0"
-              value="0.5"
+              value="{{config.linkage_config.error_threshold}}"
               max="1"></mat-slider>
         </mat-grid-tile>
 
         <mat-grid-tile>
           <mat-form-field class="traversal-depth">
             <mat-label>Traversal depth:</mat-label>
-            <input matInput type="number" placeholder="2" value="2">
+            <input matInput type="number"  value="{{config.linkage_config.traversal_depth}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
           <mat-form-field class="functionality-threshold">
             <mat-label>Functionality threshold:</mat-label>
-            <input matInput type="number" placeholder="99" value="99">
+            <input matInput type="number"  value="{{config.linkage_config.functionality_threshold}}">
           </mat-form-field>
         </mat-grid-tile>
-      </form>
+
+        <mat-grid-tile>
+          <mat-form-field class="classifier">
+            <mat-label>Classifier:</mat-label>
+            <input matInput type="text"  value="{{config.linkage_config.classifier}}">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="support_mode">
+            <mat-label>Support mode:</mat-label>
+            <input matInput type="number"  value="{{config.linkage_config.support_mode}}">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="min_support_match">
+            <mat-label>Min support match:</mat-label>
+            <input matInput type="number"  value="{{config.linkage_config.min_support_match}}">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="min_support_nonmatch">
+            <mat-label>Min support nonmatch:</mat-label>
+            <input matInput type="number"  value="{{config.linkage_config.min_support_nonmatch}}">
+          </mat-form-field>
+        </mat-grid-tile>
+
+
     </mat-grid-list>
 
       <br>
@@ -84,6 +205,8 @@
       <button mat-stroked-button color="primary">Save</button>
       </div>
     </mat-tab>
+
+
     <mat-tab label="APIs">
       <mat-accordion>
         <mat-expansion-panel hideToggle>

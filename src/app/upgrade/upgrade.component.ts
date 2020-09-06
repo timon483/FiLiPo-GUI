@@ -22,7 +22,7 @@ export class UpgradeComponent implements OnInit {
   private getConfigs () {
     this.http.get(environment.configURL).subscribe(data => {
       this.config = JSON.parse(JSON.stringify(data));
-      console.log(data.globals.dbpath);
+      //console.log(data.globals);
     }, error => {
       this.serverError = true;
     });
@@ -32,12 +32,12 @@ export class UpgradeComponent implements OnInit {
   }
 
 
-  formatLabel(value: number) {
+  /*formatLabel(value: number) {
     if (value > 0) {
       return value / 10;
     }
 
     return value;
   }
-
+*/
 }
