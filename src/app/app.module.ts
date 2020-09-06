@@ -21,6 +21,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 
 @NgModule({
   imports: [
@@ -40,7 +42,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatInputModule,
     MatListModule,
     MatTabsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSlideToggleModule
   ],
   declarations: [
     AppComponent,
