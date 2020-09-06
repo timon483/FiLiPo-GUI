@@ -22,24 +22,26 @@ import {MatListModule} from '@angular/material/list';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatButtonModule} from '@angular/material/button';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(AdminLayoutRoutes),
-    FormsModule,
-    ChartsModule,
-    NgbModule,
-    ToastrModule.forRoot(),
-    ComponentsModule,
-    MatGridListModule,
-    MatSliderModule,
-    MatInputModule,
-    MatListModule,
-    MatTabsModule,
-    MatExpansionModule,
-    MatButtonModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(AdminLayoutRoutes),
+        FormsModule,
+        ChartsModule,
+        NgbModule,
+        ToastrModule.forRoot(),
+        ComponentsModule,
+        MatGridListModule,
+        MatSliderModule,
+        MatInputModule,
+        MatListModule,
+        MatTabsModule,
+        MatExpansionModule,
+        MatButtonModule,
+        MatSlideToggleModule
+    ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,

@@ -14,6 +14,7 @@ export class UpgradeComponent implements OnInit {
 
   config = null;
   serverError = null;
+  metrics;
 
   constructor( private http: HttpClient) {
     console.log('test');
@@ -22,7 +23,9 @@ export class UpgradeComponent implements OnInit {
   private getConfigs () {
     this.http.get(environment.configURL).subscribe(data => {
       this.config = JSON.parse(JSON.stringify(data));
-      //console.log(data.globals);
+      this.metrics = data.linkage_config.similarity_metrics;
+     // console.log(data.linkage_config.similarity_metrics);
+     // console.log(this.metrics[1]);
     }, error => {
       this.serverError = true;
     });

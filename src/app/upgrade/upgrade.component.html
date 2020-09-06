@@ -197,8 +197,24 @@
           </mat-form-field>
         </mat-grid-tile>
 
-
     </mat-grid-list>
+
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Similarity metrics
+          </mat-panel-title>
+          <mat-panel-description>
+            Choose the metrics
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-grid-list cols="3" rowHeight="3:1">
+          <mat-grid-tile *ngFor="let metric of metrics">
+            <mat-slide-toggle color="primary" [ngModel]=true>{{metric}}</mat-slide-toggle>
+          </mat-grid-tile>
+
+        </mat-grid-list>
+      </mat-expansion-panel>
 
       <br>
       <div class="container">
