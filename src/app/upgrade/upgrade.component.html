@@ -216,10 +216,101 @@
         </mat-grid-list>
       </mat-expansion-panel>
 
+      <p>test</p>
+      <p *ngFor="let things of dbs">{{things.label}}</p>
+      <p *ngFor="let otherthings of apis">{{otherthings.label}} {{otherthings.parameters}}</p>
       <br>
       <div class="container">
       <button mat-stroked-button color="primary">Save</button>
       </div>
+    </mat-tab>
+
+    <mat-tab label="APIs2">
+      <mat-accordion>
+        <mat-expansion-panel hideToggle *ngFor="let api of apis">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{api.label}}
+            </mat-panel-title>
+            <mat-panel-description>
+              Click to change the settings
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="source">
+            <mat-label>Label:</mat-label>
+            <input matInput type="text"  value="{{api.label}}">
+          </mat-form-field><br>
+          <mat-form-field class="url">
+            <mat-label>Name: </mat-label>
+            <input matInput type="text" value="{{api.name}}">
+          </mat-form-field><br>
+          <mat-form-field class="url">
+            <mat-label>URL: </mat-label>
+            <input matInput type="text" placeholder="2" value="{{api.url}}">
+          </mat-form-field><br>
+          <mat-label>Parameters: </mat-label>
+          <div class="parameters-container"><mat-form-field class="url">
+            <mat-label>Name:</mat-label>
+            <input matInput type="text" placeholder="2" value="{{api.parameters.name}}">
+          </mat-form-field>
+            <mat-form-field class="url">
+              <mat-label>Status:</mat-label>
+              <input matInput type="text"  value="{{api.parameters.status}}">
+            </mat-form-field>
+            <mat-form-field class="url">
+              <mat-label>Type:</mat-label>
+              <input matInput type="text" width="50%" placeholder="2" value="{{api.parameters.type}}">
+            </mat-form-field>
+            <mat-form-field class="filter">
+              <mat-label>Filter:</mat-label>
+              <input matInput type="text" width="50%" placeholder="2" value="{{api.parameters.filter}}">
+            </mat-form-field>
+          </div>
+          <mat-form-field class="url">
+            <mat-label>Format: </mat-label>
+            <input matInput type="text" placeholder="2" value="{{api.format}}">
+          </mat-form-field>
+
+          <br>
+          <div class="button-row">
+            <button mat-stroked-button color="primary">Save</button>
+            <button mat-stroked-button color="warn">Remove</button>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+    </mat-tab>
+
+    <mat-tab label="DBs2">
+      <mat-accordion>
+        <mat-expansion-panel hideToggle *ngFor="let db of dbs">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{db.label}}
+            </mat-panel-title>
+            <mat-panel-description>
+              Click to change the settings
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="source">
+            <mat-label>Label:</mat-label>
+            <input matInput type="text"  value="{{db.label}}">
+          </mat-form-field><br>
+          <mat-form-field class="source">
+            <mat-label>Name: </mat-label>
+            <input matInput type="text" value="{{db.source}}">
+          </mat-form-field><br>
+          <mat-form-field class="url">
+            <mat-label>URL: </mat-label>
+            <input matInput type="text" placeholder="2" value="{{db.url}}">
+          </mat-form-field><br>
+          <div class="button-row">
+            <button mat-stroked-button color="primary">Save</button>
+            <button mat-stroked-button color="warn">Remove</button>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
     </mat-tab>
 
 
