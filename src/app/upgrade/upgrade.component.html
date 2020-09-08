@@ -223,6 +223,41 @@
 
     <mat-tab label="APIs2">
       <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Selection:</mat-panel-title>
+
+
+          <mat-panel-description>
+            Selection settings for APIs:
+          </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="selection-minsupport-match">
+            <mat-label>Min support match:</mat-label>
+            <input matInput type="text"  value="{{apis[0].selection[0].min_support_match}}">
+          </mat-form-field>
+          <mat-form-field class="selection-confidence">
+            <mat-label>Confidence:</mat-label>
+            <input matInput type="text"  value="{{apis[0].selection[0].confidence}}">
+          </mat-form-field>
+          <mat-form-field class="selection-minsupport-nonmatch">
+            <mat-label>Min support nonmatch:</mat-label>
+            <input matInput type="text"  value="{{apis[0].selection[0].min_support_nonmatch}}">
+          </mat-form-field>
+          <mat-form-field class="selection-type">
+            <mat-label>Type:</mat-label>
+            <input matInput type="text"  value="{{apis[0].selection[0].type}}">
+          </mat-form-field>
+          <mat-form-field class="selection-support">
+            <mat-label>Support:</mat-label>
+            <input matInput type="text"  value="{{apis[0].selection[0].support}}">
+          </mat-form-field>
+          <br>
+          <div class="button-row">
+            <button mat-stroked-button color="primary">Save</button>
+          </div>
+        </mat-expansion-panel>
+
         <mat-expansion-panel hideToggle *ngFor="let api of apis">
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -247,19 +282,19 @@
           <mat-label>Parameters: </mat-label>
           <div class="parameters-container"><mat-form-field class="url">
             <mat-label>Name:</mat-label>
-            <input matInput type="text" placeholder="2" value="{{api.parameters.name}}">
+            <input matInput type="text" placeholder="2" value="{{api.parameters[0].name}}">
           </mat-form-field>
             <mat-form-field class="url">
               <mat-label>Status:</mat-label>
-              <input matInput type="text"  value="{{api.parameters.status}}">
+              <input matInput type="text"  value="{{api.parameters[0].status}}">
             </mat-form-field>
             <mat-form-field class="url">
               <mat-label>Type:</mat-label>
-              <input matInput type="text" width="50%" placeholder="2" value="{{api.parameters.type}}">
+              <input matInput type="text" width="50%" placeholder="2" value="{{api.parameters[0].type}}">
             </mat-form-field>
             <mat-form-field class="filter">
               <mat-label>Filter:</mat-label>
-              <input matInput type="text" width="50%" placeholder="2" value="{{api.parameters.filter}}">
+              <input matInput type="text" width="50%" placeholder="2" value="{{api.parameters[0].filter}}">
             </mat-form-field>
           </div>
           <mat-form-field class="url">

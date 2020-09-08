@@ -28,7 +28,7 @@ export class UpgradeComponent implements OnInit {
   private getConfigs () {
     this.http.get(environment.configURL).subscribe(data => {
       this.config = JSON.parse(JSON.stringify(data));
-     this.metrics = data.linkage_config.similarity_metrics;
+     this.metrics = this.config.linkage_config.similarity_metrics;
      // console.log(data.linkage_config.similarity_metrics);
      // console.log(this.metrics[1]);
     }, error => {
@@ -42,8 +42,8 @@ export class UpgradeComponent implements OnInit {
 
     this.http.get(environment.databaseURL).subscribe(data1 => {
       this.databases = JSON.parse(JSON.stringify(data1));
-      this.dbs = data1.endpoints;
-       this.apis = data1.apis;
+      this.dbs = this.databases.endpoints;
+       this.apis = this.databases.apis;
     }, error => {
       this.serverError = true;
     });
