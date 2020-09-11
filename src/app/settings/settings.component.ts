@@ -6,11 +6,11 @@ import { HttpClient} from '@angular/common/http';
 
 
 @Component({
-  selector: 'app-upgrade',
-  templateUrl: './upgrade.component.html',
-  styleUrls: ['./upgrade.component.scss']
+  selector: 'app-settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.scss']
 })
-export class UpgradeComponent implements OnInit {
+export class SettingsComponent implements OnInit {
 
   config = null;
   serverError = null;
@@ -49,6 +49,11 @@ export class UpgradeComponent implements OnInit {
     });
   }
 
+  private onChange(){
+    console.log(this.config);
+  }
+
+
   ngOnInit() {
   }
 
@@ -61,4 +66,5 @@ export class UpgradeComponent implements OnInit {
     return value;
   }
 */
+
 }

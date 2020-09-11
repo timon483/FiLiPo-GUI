@@ -11,7 +11,6 @@ import {MatSelectModule} from '@angular/material/select';
 import { ApisComponent } from './apis/apis.component';
 import { RequestsComponent } from './requests/requests.component';
 import {MatSliderModule} from '@angular/material/slider';
-import { SettingsComponent } from './settings/settings.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
@@ -29,8 +28,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     SidebarComponent,
     DatabasesComponent,
     ApisComponent,
-    RequestsComponent,
-    SettingsComponent
+    RequestsComponent
   ],
   exports: [
     FooterComponent,
@@ -38,8 +36,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     SidebarComponent,
     DatabasesComponent,
     ApisComponent,
-    RequestsComponent,
-    SettingsComponent
+    RequestsComponent
   ]
 })
 export class ComponentsModule { }
