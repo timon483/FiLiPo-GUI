@@ -1,7 +1,7 @@
 <mat-form-field appearance="fill">
   <mat-label>Databases</mat-label>
   <mat-select>
-    <mat-option id="db" *ngFor="let database of Databases" value="{{database.label}}">
+    <mat-option id="db" *ngFor="let database of dbs" value="{{database.label}}">
       {{ database.label }}
     </mat-option>
   </mat-select>

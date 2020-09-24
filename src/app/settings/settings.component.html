@@ -4,70 +4,72 @@
 <div class="main-content">
   <mat-tab-group mat-align-tabs="center">
 
-    <mat-tab label="Global Settings">
+    <mat-tab label="Global Settings" id="globals">
 
       <mat-grid-list cols="4" rowHeight="3:1">
 
         <mat-grid-tile>
-          <mat-form-field class="logpath">
+          <mat-form-field>
             <mat-label>Logpath:</mat-label>
-            <input matInput type="text"  value="{{config.globals.logpath}}">
+            <input matInput type="text" id="logpath" name="logpath" value="{{config.globals.logpath}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
-          <mat-form-field class="outpath">
+          <mat-form-field>
             <mat-label>Outpath:</mat-label>
-            <input matInput type="text"  value="{{config.globals.outpath}}">
+            <input matInput type="text"   id="outpath" value="{{config.globals.outpath}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
-          <mat-form-field class="dbpath">
+          <mat-form-field>
             <mat-label>Dbpath:</mat-label>
-            <input matInput type="text"  value="{{config.globals.dbpath}}">
+            <input matInput type="text"  id="dbpath" value="{{config.globals.dbpath}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
-          <mat-form-field class="scpath">
+          <mat-form-field>
             <mat-label>Scpath:</mat-label>
-            <input matInput type="text"  value="{{config.globals.scpath}}">
+            <input matInput type="text"  id="scpath" value="{{config.globals.scpath}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
-          <mat-form-field class="secretpath">
+          <mat-form-field>
             <mat-label>Secret path:</mat-label>
-            <input matInput type="text"  value="{{config.globals.secretpath}}">
+            <input matInput type="text"  id="secretpath"  value="{{config.globals.secretpath}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
-          <mat-form-field class="ipc">
+          <mat-form-field>
             <mat-label>IPC:</mat-label>
-            <input matInput type="text"  value="{{config.globals.ipc}}">
+            <input matInput type="text"  id="ipc" value="{{config.globals.ipc}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
-          <mat-form-field class="memory">
+          <mat-form-field>
             <mat-label>Memory:</mat-label>
-            <input matInput type="text"  value="{{config.globals.memory}}">
+            <input matInput type="text" id="memory" value="{{config.globals.memory}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
-          <mat-form-field class="timeout">
+          <mat-form-field>
             <mat-label>Timeout:</mat-label>
-            <input matInput type="text"  value="{{config.globals.timeout}}">
+            <input matInput type="text"   id="timeout" value="{{config.globals.timeout}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
             <mat-label>Mode: </mat-label>
             <mat-slider
+              id="mode"
               thumbLabel
+              [displayWith]="formatMode"
               step="1"
               min="0"
               max="3"
@@ -77,6 +79,7 @@
        <mat-grid-tile>
             <mat-label>Log level:</mat-label>
             <mat-slider
+              id="loglevel"
               thumbLabel
               step="1"
               min="0"
@@ -85,36 +88,59 @@
 
         </mat-grid-tile>
 
+
       </mat-grid-list>
       <br>
+      <mat-label>Ruleset: </mat-label>
+
+      <mat-expansion-panel hideToggle *ngFor="let rule of ruleset">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{rule.name}}
+          </mat-panel-title>
+          <mat-panel-description>
+            Click to change the rule
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-form-field>
+          <mat-label>Name:</mat-label>
+          <input matInput type="text"  id="rule-name" value="{{rule.name}}">
+        </mat-form-field><br>
+        <mat-form-field class="source">
+          <mat-label>Filter: </mat-label>
+          <input matInput type="text" id="rule-filter" value="{{rule.filter}}">
+        </mat-form-field>
+      </mat-expansion-panel>
+
       <div class="container">
-        <button mat-stroked-button color="primary">Save</button>
+        <button mat-stroked-button id="saveglobals" color="primary">Save</button>
       </div>
 
     </mat-tab>
 
-    <mat-tab label="Linkage configuration">
+    <mat-tab label="Linkage configuration" id="linkage">
       <mat-grid-list cols="4" rowHeight="3:1">
 
 
         <mat-grid-tile>
-          <mat-form-field class="similarity-requests">
+          <mat-form-field>
             <mat-label>Similarity requests:</mat-label>
-            <input matInput type="number"  value="{{config.linkage_config.similarity_requests}}">
+            <input matInput type="number"   id="similarity-requests" value="{{config.linkage_config.similarity_requests}}">
           </mat-form-field>
         </mat-grid-tile>
 
 
         <mat-grid-tile>
-          <mat-form-field class="candidate-requests">
+          <mat-form-field>
             <mat-label>Candidate requests:</mat-label>
-            <input matInput type="number" placeholder="25" value="{{config.linkage_config.candidate_requests}}">
+            <input matInput type="number"  id="candidate-requests" placeholder="25" value="{{config.linkage_config.candidate_requests}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
             <mat-label>String similarity:</mat-label>
             <mat-slider
+              id="sting_similarity"
               thumbLabel
               step="0.1"
               min="0"
@@ -126,6 +152,7 @@
 
             <mat-label>Record similarity:</mat-label>
             <mat-slider
+              id="record_similarity"
               thumbLabel
               step="0.1"
               min="0"
@@ -138,6 +165,7 @@
 
             <mat-label>Distribution variance:</mat-label>
           <mat-slider
+            id="distribution_variance"
             thumbLabel
             step="0.1"
             min="0"
@@ -148,6 +176,7 @@
         <mat-grid-tile>
             <mat-label>Error threshold:</mat-label>
             <mat-slider
+              id="error_threshold"
               thumbLabel
               step="0.1"
               min="0"
@@ -156,44 +185,44 @@
         </mat-grid-tile>
 
         <mat-grid-tile>
-          <mat-form-field class="traversal-depth">
+          <mat-form-field>
             <mat-label>Traversal depth:</mat-label>
-            <input matInput type="number"  value="{{config.linkage_config.traversal_depth}}">
+            <input matInput type="number"  id="traversal-depth"  value="{{config.linkage_config.traversal_depth}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
-          <mat-form-field class="functionality-threshold">
+          <mat-form-field >
             <mat-label>Functionality threshold:</mat-label>
-            <input matInput type="number"  value="{{config.linkage_config.functionality_threshold}}">
+            <input matInput type="number" id="functionality-threshold"  value="{{config.linkage_config.functionality_threshold}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
-          <mat-form-field class="classifier">
+          <mat-form-field>
             <mat-label>Classifier:</mat-label>
-            <input matInput type="text"  value="{{config.linkage_config.classifier}}">
+            <input matInput type="text"   id="classifier" value="{{config.linkage_config.classifier}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
-          <mat-form-field class="support_mode">
+          <mat-form-field >
             <mat-label>Support mode:</mat-label>
-            <input matInput type="number"  value="{{config.linkage_config.support_mode}}">
+            <input matInput type="number" id="support_mode"  value="{{config.linkage_config.support_mode}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
-          <mat-form-field class="min_support_match">
+          <mat-form-field>
             <mat-label>Min support match:</mat-label>
-            <input matInput type="number"  value="{{config.linkage_config.min_support_match}}">
+            <input matInput type="number"   id="min_support_match" value="{{config.linkage_config.min_support_match}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
-          <mat-form-field class="min_support_nonmatch">
+          <mat-form-field>
             <mat-label>Min support nonmatch:</mat-label>
-            <input matInput type="number"  value="{{config.linkage_config.min_support_nonmatch}}">
+            <input matInput type="number"  id="min_support_nonmatch" value="{{config.linkage_config.min_support_nonmatch}}">
           </mat-form-field>
         </mat-grid-tile>
 
@@ -221,7 +250,24 @@
       </div>
     </mat-tab>
 
-    <mat-tab label="APIs2">
+    <mat-tab label="Secret">
+
+      <mat-grid-list cols="2" rowHeight="3:1">
+        <mat-grid-tile *ngFor="let secret of secret.secrets">
+          <mat-form-field>
+            <mat-label>Name: </mat-label>
+            <input matInput type="text" id="secret-name" value="{{secret.name}}">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Secret" </mat-label>
+            <input matInput type="text" id="secret-secret" value="{{secret.secret}}">
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+    </mat-tab>
+
+    <mat-tab label="APIs">
       <mat-accordion>
         <mat-expansion-panel hideToggle>
           <mat-expansion-panel-header>
@@ -232,25 +278,25 @@
             Selection settings for APIs:
           </mat-panel-description>
           </mat-expansion-panel-header>
-          <mat-form-field class="selection-minsupport-match">
+          <mat-form-field>
             <mat-label>Min support match:</mat-label>
-            <input matInput type="text"  value="{{apis[0].selection[0].min_support_match}}">
+            <input matInput type="text"  id="selection-minsupport-match" value="{{apis[0].selection[0].min_support_match}}">
           </mat-form-field>
-          <mat-form-field class="selection-confidence">
+          <mat-form-field>
             <mat-label>Confidence:</mat-label>
-            <input matInput type="text"  value="{{apis[0].selection[0].confidence}}">
+            <input matInput type="text"  id="selection-confidence" value="{{apis[0].selection[0].confidence}}">
           </mat-form-field>
-          <mat-form-field class="selection-minsupport-nonmatch">
+          <mat-form-field>
             <mat-label>Min support nonmatch:</mat-label>
-            <input matInput type="text"  value="{{apis[0].selection[0].min_support_nonmatch}}">
+            <input matInput type="text"  id="selection-minsupport-nonmatch" value="{{apis[0].selection[0].min_support_nonmatch}}">
           </mat-form-field>
-          <mat-form-field class="selection-type">
+          <mat-form-field>
             <mat-label>Type:</mat-label>
-            <input matInput type="text"  value="{{apis[0].selection[0].type}}">
+            <input matInput type="text"  id="selection-type" value="{{apis[0].selection[0].type}}">
           </mat-form-field>
-          <mat-form-field class="selection-support">
+          <mat-form-field>
             <mat-label>Support:</mat-label>
-            <input matInput type="text"  value="{{apis[0].selection[0].support}}">
+            <input matInput type="text"   id="selection-support" value="{{apis[0].selection[0].support}}">
           </mat-form-field>
           <br>
           <div class="button-row">
@@ -269,37 +315,37 @@
           </mat-expansion-panel-header>
           <mat-form-field class="source">
             <mat-label>Label:</mat-label>
-            <input matInput type="text"  value="{{api.label}}">
+            <input matInput type="text"  id="api-label" value="{{api.label}}">
           </mat-form-field><br>
           <mat-form-field class="url">
             <mat-label>Name: </mat-label>
-            <input matInput type="text" value="{{api.name}}">
+            <input matInput type="text" id="api-name" value="{{api.name}}">
           </mat-form-field><br>
           <mat-form-field class="url">
             <mat-label>URL: </mat-label>
-            <input matInput type="text" placeholder="2" value="{{api.url}}">
+            <input matInput type="text" placeholder="2" id="api-url" value="{{api.url}}">
           </mat-form-field><br>
           <mat-label>Parameters: </mat-label>
-          <div class="parameters-container"><mat-form-field class="url">
+          <div class="parameters-container"><mat-form-field>
             <mat-label>Name:</mat-label>
-            <input matInput type="text" placeholder="2" value="{{api.parameters[0].name}}">
+            <input matInput type="text" placeholder="2" id="parameters-name" value="{{api.parameters[0].name}}">
           </mat-form-field>
             <mat-form-field class="url">
               <mat-label>Status:</mat-label>
-              <input matInput type="text"  value="{{api.parameters[0].status}}">
+              <input matInput type="text" id="parameters-status" value="{{api.parameters[0].status}}">
             </mat-form-field>
             <mat-form-field class="url">
               <mat-label>Type:</mat-label>
-              <input matInput type="text" width="50%" placeholder="2" value="{{api.parameters[0].type}}">
+              <input matInput type="text" width="50%" placeholder="2" id="parameters-type" value="{{api.parameters[0].type}}">
             </mat-form-field>
             <mat-form-field class="filter">
               <mat-label>Filter:</mat-label>
-              <input matInput type="text" width="50%" placeholder="2" value="{{api.parameters[0].filter}}">
+              <input matInput type="text" width="50%" placeholder="2" id="parameters-filter" value="{{api.parameters[0].filter}}">
             </mat-form-field>
           </div>
           <mat-form-field class="url">
             <mat-label>Format: </mat-label>
-            <input matInput type="text" placeholder="2" value="{{api.format}}">
+            <input matInput type="text" placeholder="2" id="api-format" value="{{api.format}}">
           </mat-form-field>
 
           <br>
@@ -312,7 +358,7 @@
 
     </mat-tab>
 
-    <mat-tab label="DBs2">
+    <mat-tab label="Databases">
       <mat-accordion>
         <mat-expansion-panel hideToggle *ngFor="let db of dbs">
           <mat-expansion-panel-header>
@@ -325,15 +371,15 @@
           </mat-expansion-panel-header>
           <mat-form-field class="source">
             <mat-label>Label:</mat-label>
-            <input matInput type="text"  value="{{db.label}}">
+            <input matInput type="text"  id="db-label" value="{{db.label}}">
           </mat-form-field><br>
           <mat-form-field class="source">
             <mat-label>Name: </mat-label>
-            <input matInput type="text" value="{{db.source}}">
+            <input matInput type="text" id="db-source" value="{{db.source}}">
           </mat-form-field><br>
           <mat-form-field class="url">
             <mat-label>URL: </mat-label>
-            <input matInput type="text" placeholder="2" value="{{db.url}}">
+            <input matInput type="text" placeholder="2" id="db-url" value="{{db.url}}">
           </mat-form-field><br>
           <div class="button-row">
             <button mat-stroked-button color="primary">Save</button>
@@ -345,253 +391,6 @@
     </mat-tab>
 
 
-    <mat-tab label="APIs">
-      <mat-accordion>
-        <mat-expansion-panel hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              scigraphDOI
-            </mat-panel-title>
-            <mat-panel-description>
-              Click to change the settings
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <mat-form-field class="source">
-            <mat-label>Label:</mat-label>
-            <input matInput type="text" placeholder="2" value="scigraphDOI">
-          </mat-form-field><br>
-          <mat-form-field class="url">
-            <mat-label>Name: </mat-label>
-            <input matInput type="text" placeholder="2" value="Springer SciGraph">
-          </mat-form-field><br>
-          <mat-form-field class="url">
-            <mat-label>URL: </mat-label>
-            <input matInput type="text" placeholder="2" value="http://api.springernature.com/metadata/{format}?q=doi:{q}&api_key={key}">
-          </mat-form-field><br>
-          <mat-label>Parameters: </mat-label>
-          <div class="parameters-container"><mat-form-field class="url">
-           <mat-label>Name:</mat-label>
-            <input matInput type="text" placeholder="2" value="q">
-          </mat-form-field>
-          <mat-form-field class="url">
-            <mat-label>Status:</mat-label>
-            <input matInput type="text" placeholder="2" value="required">
-          </mat-form-field>
-          <mat-form-field class="url">
-            <mat-label>Type:</mat-label>
-            <input matInput type="text" width="50%" placeholder="2" value="https://dblp.org/rdf/schema-2017-04-18#Publication">
-          </mat-form-field>
-          </div>
-          <mat-form-field class="url">
-            <mat-label>Format: </mat-label>
-            <input matInput type="text" placeholder="2" value="json">
-          </mat-form-field>
-
-          <br>
-          <div class="button-row">
-            <button mat-stroked-button color="primary">Save</button>
-            <button mat-stroked-button color="warn">Remove</button>
-          </div>
-        </mat-expansion-panel>
-        <mat-expansion-panel hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              s2arxiv
-            </mat-panel-title>
-            <mat-panel-description>
-              Click to change the settings
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <mat-form-field class="source">
-            <mat-label>Label:</mat-label>
-            <input matInput type="text" placeholder="2" value="s2arxiv">
-          </mat-form-field><br>
-          <mat-form-field class="url">
-            <mat-label>Name: </mat-label>
-            <input matInput type="text" placeholder="2" value="Semantic Scholar usin ArXiv ID">
-          </mat-form-field><br>
-          <mat-form-field class="url">
-            <mat-label>URL: </mat-label>
-            <input matInput type="text" placeholder="2" value="https://api.semanticscholar.org/v1/paper/arXiv:{q}">
-          </mat-form-field><br>
-          <mat-label>Parameters: </mat-label>
-          <div class="parameters-container"><mat-form-field class="url">
-            <mat-label>Name:</mat-label>
-            <input matInput type="text" placeholder="2" value="q">
-          </mat-form-field>
-            <mat-form-field class="url">
-              <mat-label>Status:</mat-label>
-              <input matInput type="text" placeholder="2" value="required">
-            </mat-form-field>
-            <mat-form-field class="url">
-              <mat-label>Type:</mat-label>
-              <input matInput type="text" width="50%" placeholder="2" value="https://dblp.org/rdf/schema-2017-04-18#Publication">
-            </mat-form-field>
-          </div>
-          <mat-form-field class="url">
-            <mat-label>Format: </mat-label>
-            <input matInput type="text" placeholder="2" value="json">
-          </mat-form-field>
-
-          <br>
-          <div class="button-row">
-            <button mat-stroked-button color="primary">Save</button>
-            <button mat-stroked-button color="warn">Remove</button>
-          </div>
-        </mat-expansion-panel>
-        <mat-expansion-panel hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              crossrefDOI
-            </mat-panel-title>
-            <mat-panel-description>
-              Click to change the settings
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <mat-form-field class="source">
-            <mat-label>Label:</mat-label>
-            <input matInput type="text" placeholder="2" value="crossrefDOI">
-          </mat-form-field><br>
-          <mat-form-field class="url">
-            <mat-label>Name: </mat-label>
-            <input matInput type="text" placeholder="2" value="CrossRef DOI API">
-          </mat-form-field><br>
-          <mat-form-field class="url">
-            <mat-label>URL: </mat-label>
-            <input matInput type="text" placeholder="2" value="https://api.crossref.org/works/{doi}">
-          </mat-form-field><br>
-          <mat-label>Parameters: </mat-label>
-          <div class="parameters-container"><mat-form-field class="url">
-            <mat-label>Name:</mat-label>
-            <input matInput type="text" placeholder="2" value="doi">
-          </mat-form-field>
-            <mat-form-field class="url">
-              <mat-label>Status:</mat-label>
-              <input matInput type="text" placeholder="2" value="required">
-            </mat-form-field>
-            <mat-form-field class="url">
-              <mat-label>Type:</mat-label>
-              <input matInput type="text" width="50%" placeholder="2" value="https://dblp.org/rdf/schema-2017-04-18#Publication">
-            </mat-form-field>
-          </div>
-          <mat-form-field class="url">
-            <mat-label>Format: </mat-label>
-            <input matInput type="text" placeholder="2" value="json">
-          </mat-form-field>
-
-          <br>
-          <div class="button-row">
-            <button mat-stroked-button color="primary">Save</button>
-            <button mat-stroked-button color="warn">Remove</button>
-          </div>
-        </mat-expansion-panel>
-        <mat-expansion-panel hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              arxiv
-            </mat-panel-title>
-            <mat-panel-description>
-              Click to change the settings
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <mat-form-field class="source">
-            <mat-label>Label:</mat-label>
-            <input matInput type="text" placeholder="2" value="arxiv">
-          </mat-form-field><br>
-          <mat-form-field class="url">
-            <mat-label>Name: </mat-label>
-            <input matInput type="text" placeholder="2" value="arXiv">
-          </mat-form-field><br>
-          <mat-form-field class="url">
-            <mat-label>URL: </mat-label>
-            <input matInput type="text" placeholder="2" value="http://export.arxiv.org/api/query?search_query=id:{doi}">
-          </mat-form-field><br>
-          <mat-label>Parameters: </mat-label>
-          <div class="parameters-container"><mat-form-field class="url">
-            <mat-label>Name:</mat-label>
-            <input matInput type="text" placeholder="2" value="doi">
-          </mat-form-field>
-            <mat-form-field class="url">
-              <mat-label>Status:</mat-label>
-              <input matInput type="text" placeholder="2" value="required">
-            </mat-form-field>
-            <mat-form-field class="url">
-              <mat-label>Type:</mat-label>
-              <input matInput type="text" width="50%" placeholder="2" value="https://dblp.org/rdf/schema-2017-04-18#Publication">
-            </mat-form-field>
-            <mat-form-field class="url">
-              <mat-label>Filter:</mat-label>
-              <input matInput type="text" width="50%" placeholder="2" value="https://dblp.org/rdf/schema-2017-04-18#arxivKey">
-            </mat-form-field>
-          </div>
-          <mat-form-field class="url">
-            <mat-label>Format: </mat-label>
-            <input matInput type="text" placeholder="2" value="json">
-          </mat-form-field>
-
-          <br>
-          <div class="button-row">
-            <button mat-stroked-button color="primary">Save</button>
-            <button mat-stroked-button color="warn">Remove</button>
-          </div>
-        </mat-expansion-panel>
-
-      </mat-accordion>
-
-      <button mat-stroked-button color="primary">Add</button>
-    </mat-tab>
-    <mat-tab label="Databases">
-      <mat-accordion>
-        <mat-expansion-panel hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              dblp
-            </mat-panel-title>
-            <mat-panel-description>
-              Click to change the settings
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <mat-form-field class="source">
-            <mat-label>Source:</mat-label>
-            <input matInput type="text" placeholder="2" value="C:/Databases/dblp-2020-04-28/dblp-2020-04-28.nt">
-          </mat-form-field><br>
-          <mat-form-field class="url">
-            <mat-label>URL: </mat-label>
-            <input matInput type="text" placeholder="2" value="C:/Databases/dblp-2020-04-28/tdb/">
-          </mat-form-field>
-          <br>
-          <div class="button-row">
-          <button mat-stroked-button color="primary">Save</button>
-          <button mat-stroked-button color="warn">Remove</button>
-          </div>
-        </mat-expansion-panel>
-        <mat-expansion-panel hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              moviedb
-            </mat-panel-title>
-            <mat-panel-description>
-              Click to change the settings
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <mat-form-field class="source">
-            <mat-label>Source:</mat-label>
-            <input matInput type="text" placeholder="2" value="C:/Databases/linked_mdb/fixed_linkedmdb.nt">
-          </mat-form-field><br>
-          <mat-form-field class="url">
-            <mat-label>URL: </mat-label>
-            <input matInput type="text" placeholder="2" value="C:/Databases/linked_mdb/tdb">
-          </mat-form-field>
-          <br>
-          <div class="button-row">
-            <button mat-stroked-button color="primary">Save</button>
-            <button mat-stroked-button color="warn">Remove</button>
-          </div>
-        </mat-expansion-panel>
-      </mat-accordion>
-
-      <button mat-stroked-button color="primary">Add</button>
-    </mat-tab>
 
   </mat-tab-group>
 

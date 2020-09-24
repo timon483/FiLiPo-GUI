@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { HttpClient} from '@angular/common/http';
 
 
 
@@ -10,11 +12,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DatabasesComponent {
 
-  label: string;
-  source: string;
-  url: string;
+  serverError = null;
+  dbs = null;
+  databases = null;
 
-  Databases: { label: string; source: string; url: string }[] =
-    [{label: 'dblp', source: 'C:/Databases/dblp-2020-04-28/dblp-2020-04-28.nt', url: 'C:/Databases/dblp-2020-04-28/tdb/'},
-{label: 'moviedb', source: 'C:/Databases/linked_mdb/fixed_linkedmdb.nt', url: 'C:/Databases/linked_mdb/tdb'}];
+  constructor( private http: HttpClient, private element: ElementRef) {
+    this.getDatabases();
+  }
+
+  private getDatabases () {
+
+    this.http.get(environment.databaseURL).subscribe(data1 => {
+      this.databases = JSON.parse(JSON.stringify(data1));
+      this.dbs = this.databases.endpoints;
+    }, error => {
+      this.serverError = true;
+    });
+  }
+
+
+  ngOnInit() {
+  }
+
+
+
+
+
 }

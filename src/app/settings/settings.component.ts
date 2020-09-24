@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient} from '@angular/common/http';
 
@@ -15,27 +15,28 @@ export class SettingsComponent implements OnInit {
   config = null;
   serverError = null;
   metrics = null;
+  ruleset = null;
   dbs = null;
   apis = null;
   databases = null;
+  secret = null;
 
-  constructor( private http: HttpClient) {
+  constructor( private http: HttpClient, private element: ElementRef) {
     console.log('test');
     this.getConfigs();
     this.getDatabasesAndAPIs();
+    this.getSecret();
+    console.log(this.secret);
   }
 
   private getConfigs () {
     this.http.get(environment.configURL).subscribe(data => {
       this.config = JSON.parse(JSON.stringify(data));
      this.metrics = this.config.linkage_config.similarity_metrics;
-     // console.log(data.linkage_config.similarity_metrics);
-     // console.log(this.metrics[1]);
+     this.ruleset = this.config.ruleset;
     }, error => {
       this.serverError = true;
     });
-
-
   }
 
   private getDatabasesAndAPIs () {
@@ -49,10 +50,30 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  private getSecret(){
+    this.http.get(environment.secretURL).subscribe(data1 => {
+      this.secret = JSON.parse(JSON.stringify(data1));
+    }, error => {
+      this.serverError = true;
+    });
+
+  }
+
   private onChange(){
     console.log(this.config);
   }
 
+  private formatMode(value: number){
+    if (value === 0) {
+      return 'non-technical user';
+    } else if (value === 1) {
+      return 'technical user';
+    } else if (value === 2) {
+      return 'evaluation';
+    } else if (value === 4) {
+      return 'demo';
+    } else { return value; }
+  }
 
   ngOnInit() {
   }
