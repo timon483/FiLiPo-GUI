@@ -68,6 +68,7 @@
             <mat-label>Mode: </mat-label>
             <mat-slider
               id="mode"
+              (input)="changeMode($event)"
               thumbLabel
               [displayWith]="formatMode"
               step="1"
@@ -80,6 +81,7 @@
             <mat-label>Log level:</mat-label>
             <mat-slider
               id="loglevel"
+              (input)="changeLogLevel($event)"
               thumbLabel
               step="1"
               min="0"
@@ -93,7 +95,7 @@
       <br>
       <mat-label>Ruleset: </mat-label>
 
-      <mat-expansion-panel hideToggle *ngFor="let rule of ruleset">
+      <mat-expansion-panel id="ruleset" hideToggle *ngFor="let rule of ruleset">
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{rule.name}}
@@ -113,7 +115,7 @@
       </mat-expansion-panel>
 
       <div class="container">
-        <button mat-stroked-button id="saveglobals" color="primary">Save</button>
+        <button mat-stroked-button id="saveglobals" (click)="saveConfigs()" color="primary">Save</button>
       </div>
 
     </mat-tab>
@@ -125,7 +127,7 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>Similarity requests:</mat-label>
-            <input matInput type="number"   id="similarity-requests" value="{{config.linkage_config.similarity_requests}}">
+            <input matInput type="number"   id="similarity_requests" value="{{config.linkage_config.similarity_requests}}">
           </mat-form-field>
         </mat-grid-tile>
 
@@ -133,14 +135,15 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>Candidate requests:</mat-label>
-            <input matInput type="number"  id="candidate-requests" placeholder="25" value="{{config.linkage_config.candidate_requests}}">
+            <input matInput type="number"  id="candidate_requests" placeholder="25" value="{{config.linkage_config.candidate_requests}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
-            <mat-label>String similarity:</mat-label>
+            <mat-label >String similarity:</mat-label>
             <mat-slider
-              id="sting_similarity"
+              id="string_similarity"
+              (input)="changeStringSimilarity($event)"
               thumbLabel
               step="0.1"
               min="0"
@@ -153,6 +156,7 @@
             <mat-label>Record similarity:</mat-label>
             <mat-slider
               id="record_similarity"
+              (input)="changeRecordSimilarity($event)"
               thumbLabel
               step="0.1"
               min="0"
@@ -166,6 +170,7 @@
             <mat-label>Distribution variance:</mat-label>
           <mat-slider
             id="distribution_variance"
+            (input)="changeDistributionVariance($event)"
             thumbLabel
             step="0.1"
             min="0"
@@ -174,9 +179,17 @@
         </mat-grid-tile>
 
         <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Candidate responses:</mat-label>
+            <input matInput type="number"   id="candidate_responses" value="{{config.linkage_config.candidate_responses}}">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
             <mat-label>Error threshold:</mat-label>
             <mat-slider
               id="error_threshold"
+              (input)="changeErrorThreshold($event)"
               thumbLabel
               step="0.1"
               min="0"
@@ -187,14 +200,14 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>Traversal depth:</mat-label>
-            <input matInput type="number"  id="traversal-depth"  value="{{config.linkage_config.traversal_depth}}">
+            <input matInput type="number"  id="traversal_depth"  value="{{config.linkage_config.traversal_depth}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
           <mat-form-field >
             <mat-label>Functionality threshold:</mat-label>
-            <input matInput type="number" id="functionality-threshold"  value="{{config.linkage_config.functionality_threshold}}">
+            <input matInput type="number" id="functionality_threshold"  value="{{config.linkage_config.functionality_threshold}}">
           </mat-form-field>
         </mat-grid-tile>
 
@@ -238,32 +251,33 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-grid-list cols="3" rowHeight="3:1">
-          <mat-grid-tile *ngFor="let metric of metrics">
-            <mat-slide-toggle color="primary" [ngModel]=true>{{metric}}</mat-slide-toggle>
+          <mat-grid-tile *ngFor="let metric of similarityMetrics">
+            <mat-slide-toggle color="primary"  id="{{metric}}" checked="false">{{metric}}</mat-slide-toggle>
           </mat-grid-tile>
 
         </mat-grid-list>
       </mat-expansion-panel>
       <br>
       <div class="container">
-      <button mat-stroked-button color="primary" (click)="onSubmit()">Save</button>
+      <button mat-stroked-button color="primary" (click)="saveOtherConfigs()">Save</button>
       </div>
     </mat-tab>
 
     <mat-tab label="Secret">
 
       <mat-grid-list cols="2" rowHeight="3:1">
-        <mat-grid-tile *ngFor="let secret of secret.secrets">
+        <mat-grid-tile *ngFor="let secret of secret">
           <mat-form-field>
             <mat-label>Name: </mat-label>
             <input matInput type="text" id="secret-name" value="{{secret.name}}">
           </mat-form-field>
           <mat-form-field>
-            <mat-label>Secret" </mat-label>
+            <mat-label>Secret: </mat-label>
             <input matInput type="text" id="secret-secret" value="{{secret.secret}}">
           </mat-form-field>
         </mat-grid-tile>
       </mat-grid-list>
+      <button mat-stroked-button color="primary" (click)="saveOtherConfigs()">Save</button>
 
     </mat-tab>
 
@@ -351,12 +365,74 @@
           <br>
           <div class="button-row">
             <button mat-stroked-button color="primary">Save</button>
+            <button mat-stroked-button color="warn" (click)="removeAPI(api.label)">Remove</button>
+          </div>
+        </mat-expansion-panel>
+
+
+
+        <mat-expansion-panel *ngIf="isChecked==true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              test
+            </mat-panel-title>
+            <mat-panel-description>
+              Click to change the settings
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="source">
+            <mat-label>Label:</mat-label>
+            <input matInput type="text"  id="add-api-label">
+          </mat-form-field><br>
+          <mat-form-field class="url">
+            <mat-label>Name: </mat-label>
+            <input matInput type="text" id="add-api-name">
+          </mat-form-field><br>
+          <mat-form-field class="url">
+            <mat-label>URL: </mat-label>
+            <input matInput type="text" placeholder="2" id="add-api-url">
+          </mat-form-field><br>
+          <mat-label>Parameters: </mat-label>
+          <div class="parameters-container"><mat-form-field>
+            <mat-label>Name:</mat-label>
+            <input matInput type="text" placeholder="2" id="add-parameters-name">
+          </mat-form-field>
+            <mat-form-field class="url">
+              <mat-label>Status:</mat-label>
+              <input matInput type="text" id="add-parameters-status">
+            </mat-form-field>
+            <mat-form-field class="url">
+              <mat-label>Type:</mat-label>
+              <input matInput type="text" width="50%" placeholder="2" id="add-parameters-type">
+            </mat-form-field>
+            <mat-form-field class="filter">
+              <mat-label>Filter:</mat-label>
+              <input matInput type="text" width="50%" placeholder="2" id="add-parameters-filter">
+            </mat-form-field>
+          </div>
+          <mat-form-field class="url">
+            <mat-label>Format: </mat-label>
+            <input matInput type="text" placeholder="2" id="add-api-format">
+          </mat-form-field>
+
+          <br>
+          <div class="button-row">
+            <button mat-stroked-button color="primary" (click)="saveNewAPI()">Save</button>
             <button mat-stroked-button color="warn">Remove</button>
           </div>
         </mat-expansion-panel>
+
+
+
       </mat-accordion>
 
+
+
+
+
+      <button mat-stroked-button color="primary" (click)="addAPI()">Add</button>
     </mat-tab>
+
 
     <mat-tab label="Databases">
       <mat-accordion>
@@ -383,10 +459,41 @@
           </mat-form-field><br>
           <div class="button-row">
             <button mat-stroked-button color="primary">Save</button>
+            <button mat-stroked-button color="warn" (click)="removeDatabase(db.label)">Remove</button>
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle *ngIf="isAddData == true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              test
+            </mat-panel-title>
+            <mat-panel-description>
+              Click to change the settings
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="source">
+            <mat-label>Label:</mat-label>
+            <input matInput type="text"  id="add-db-label">
+          </mat-form-field><br>
+          <mat-form-field class="source">
+            <mat-label>Source: </mat-label>
+            <input matInput type="text" id="add-db-source">
+          </mat-form-field><br>
+          <mat-form-field class="url">
+            <mat-label>URL: </mat-label>
+            <input matInput type="text" placeholder="2" id="add-db-url">
+          </mat-form-field><br>
+          <div class="button-row">
+            <button mat-stroked-button color="primary" (click)="saveNewData()">Save</button>
             <button mat-stroked-button color="warn">Remove</button>
           </div>
         </mat-expansion-panel>
+
+
       </mat-accordion>
+
+      <button mat-stroked-button color="primary" (click)="addDatabase()">Add</button>
 
     </mat-tab>
 
