@@ -5,6 +5,7 @@ import {stringify} from 'querystring';
 import {FormControl} from '@angular/forms';
 import {coerceCssPixelValue} from '@angular/cdk/coercion';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
+import {ActivatedRoute, NavigationEnd, Router, RouterModule} from '@angular/router';
 
 
 
@@ -16,8 +17,11 @@ import {MatSlideToggle} from '@angular/material/slide-toggle';
 export class SettingsComponent implements OnInit {
 
 
+
   @Input() isChecked = false;
   @Input() isAddData = false;
+  @Input() isAddSecret = false;
+  @Input() isAddRuleset = false;
   config = null;
   serverError = null;
   metrics = null;
@@ -51,44 +55,59 @@ export class SettingsComponent implements OnInit {
     'Overlap 2-shingles Normalized', 'Overlap 3-shingles Normalized', 'Overlap 4-shingles Normalized', 'Overlap 5-shingles Normalized'];
 
 
-  constructor( private http: HttpClient, private element: ElementRef) {
-    console.log('test');
+
+
+  constructor( private http: HttpClient, private element: ElementRef, private router: Router) {
     this.getConfigs();
     this.getDatabasesAndAPIs();
     this.getSecret();
-
-
-
-    // console.log(this.secret);
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false; } ;
   }
 
   private getConfigs () {
     this.http.get(environment.configURL).subscribe(data => {
       this.config = JSON.parse(JSON.stringify(data));
      this.metrics = this.config.linkage_config.similarity_metrics;
-
-
      this.ruleset = this.config.ruleset;
     }, error => {
       this.serverError = true;
     });
   }
 
-   test(metric: string): boolean {
-    let l = false;
+   metricSlider(metric: string): boolean {
    for (let i = 0; i < this.metrics.length; i++) {
      if (this.metrics[i] === metric) {
-       l = !l;
+       return true;
      }
-     console.log(metric);
-     console.log(l);
-     return l;
+   }
+     return false;
    }
 
+   editMetric(metric: string){
+
+    if (this.metricSlider(metric)) {
+      this.removeMetric(metric);
+    } else {
+      this.addMetric(metric);
     }
+   }
 
+  addMetric(metric: string){
+    const newURL = environment.configURL + '?addMetric=' + metric;
+    this.http.get(newURL).subscribe(data => {
+    }, error => {
+      this.serverError = true;
+    });
+  }
 
-
+  removeMetric(metric: string){
+    const newURL = environment.configURL + '?removeMetric=' + metric;
+    this.http.get(newURL).subscribe(data => {
+    }, error => {
+      this.serverError = true;
+    });
+  }
 
   private getDatabasesAndAPIs () {
 
@@ -111,9 +130,6 @@ export class SettingsComponent implements OnInit {
 
   }
 
-
-
-
   private formatMode(value: number) {
     if (value === 0) {
       return 'non-technical user';
@@ -127,27 +143,27 @@ export class SettingsComponent implements OnInit {
   }
 
   changeLogLevel(event: any) {
-    this.config.globals.loglevel = event.value;
+    this.config.globals.loglevel = event.value.toString();
   }
 
   changeMode(event: any) {
-    this.config.globals.mode = event.value;
+    this.config.globals.mode = event.value.toString();
   }
 
   changeStringSimilarity(event: any) {
-    this.config.linkage_config.string_similarity = event.value;
+    this.config.linkage_config.string_similarity = event.value.toString();
   }
 
   changeRecordSimilarity(event: any) {
-    this.config.linkage_config.record_similarity = event.value;
+    this.config.linkage_config.record_similarity = event.value.toString();
   }
 
   changeDistributionVariance(event: any) {
-    this.config.linkage_config.distribution_variance = event.value;
+    this.config.linkage_config.distribution_variance = event.value.toString();
   }
 
   changeErrorThreshold(event: any) {
-    this.config.linkage_config.error_threshold = event.value;
+    this.config.linkage_config.error_threshold = event.value.toString();
   }
 
   saveConfigs() {
@@ -160,12 +176,9 @@ export class SettingsComponent implements OnInit {
     this.config.globals.memory = (<HTMLInputElement>document.getElementById('memory')).value;
     this.config.globals.timeout = (<HTMLInputElement>document.getElementById('timeout')).value;
 
-    console.log(this.config.globals.logpath);
-
     const newURL = environment.configURL + '?config=' + JSON.stringify(this.config);
 
     this.http.get(newURL).subscribe(data => {
-      console.log('test' + data);
     }, error => {
       this.serverError = true;
     });
@@ -184,13 +197,9 @@ export class SettingsComponent implements OnInit {
     this.config.linkage_config.min_support_match = (<HTMLInputElement>document.getElementById('min_support_match')).value;
     this.config.linkage_config.min_support_nonmatch = (<HTMLInputElement>document.getElementById('min_support_nonmatch')).value;
 
-
-
-
     const newURL = environment.configURL + '?config=' + JSON.stringify(this.config);
 
     this.http.get(newURL).subscribe(data => {
-      console.log('test' + data);
     }, error => {
       this.serverError = true;
     });
@@ -198,10 +207,7 @@ export class SettingsComponent implements OnInit {
   }
 
   addAPI() {
-
-   // (<HTMLElement>document.getElementById('input-api')).hidden = false;
     this.isChecked = true;
-
   }
 
   saveNewAPI(){
@@ -220,11 +226,9 @@ export class SettingsComponent implements OnInit {
     '&Aurl=' + url + '&parametersname=' + parametersname + '&parameterstype=' + parameterstype + '&parametersstatus=' + parametersstatus +
     '&parametersfilter=' + parametersfilter;
     this.http.get(newURL).subscribe(data => {
-      console.log('test' + data);
     }, error => {
       this.serverError = true;
     });
-    console.log(newURL);
 
   }
 
@@ -233,11 +237,9 @@ export class SettingsComponent implements OnInit {
     const newURL = environment.databaseURL + '?removeAPI=' + label;
 
     this.http.get(newURL).subscribe(data => {
-      console.log('test' + data);
     }, error => {
       this.serverError = true;
     });
-    console.log(newURL);
   }
 
   addDatabase() {
@@ -252,33 +254,84 @@ export class SettingsComponent implements OnInit {
     const newURL = environment.databaseURL + '?label=' + label + '&url=' + url + '&source=' + source;
 
     this.http.get(newURL).subscribe(data => {
-      console.log('test' + data);
     }, error => {
       this.serverError = true;
     });
-    console.log(newURL);
-
-
 
   }
 
   removeDatabase(label: string){
 
-
-
-
     const newURL = environment.databaseURL + '?deleteDB=' + label;
 
     this.http.get(newURL).subscribe(data => {
-      console.log('test' + data);
     }, error => {
       this.serverError = true;
     });
-    console.log(newURL);
   }
+
+  addSecret(){
+    this.isAddSecret = true;
+  }
+
+  saveNewSecret(){
+    const secretname = (<HTMLInputElement>document.getElementById('add-secret-name')).value;
+    const secret = (<HTMLInputElement>document.getElementById('add-secret-secret')).value;
+
+    const newURL = environment.secretURL + '?secretname=' + secretname + '&secret=' + secret;
+
+    this.http.get(newURL).subscribe(data => {
+    }, error => {
+      this.serverError = true;
+    });
+    this.router.navigateByUrl('/settings');
+
+  }
+
+  removeSecret(name: string){
+    const newURL = environment.secretURL + '?removesecret=' + name;
+
+    this.http.get(newURL).subscribe(data => {
+    }, error => {
+      this.serverError = true;
+    });
+    this.router.navigateByUrl('/settings');
+  }
+
+  addNewRule(){
+    this.isAddRuleset = true;
+  }
+
+
+  saveNewRule(){
+    const rulename = (<HTMLInputElement>document.getElementById('add-rule')).value;
+    const rulefilter = (<HTMLInputElement>document.getElementById('add-rule-filter')).value;
+
+    const newURL = environment.configURL + '?rulename=' + rulename + '&rulefilter=' + rulefilter;
+
+    this.http.get(newURL).subscribe(data => {
+    }, error => {
+      this.serverError = true;
+    });
+    this.isAddRuleset = false;
+    this.router.navigateByUrl('/settings');
+    }
+
+  removeRule(rule: string){
+
+    const newURL = environment.configURL + '?removeRule=' + rule;
+
+    this.http.get(newURL).subscribe(data => {
+    }, error => {
+      this.serverError = true;
+    });
+    this.router.navigateByUrl('/settings');
+  }
+
 
   ngOnInit() {
   }
+
 
 
 }

@@ -8,14 +8,20 @@
 
 <div class="main-content">
 
-  <app-databases></app-databases><br>
+
+ <app-databases></app-databases>
+  <br>
   <app-apis></app-apis><br>
-  <label for="request">Requests:</label>
+  <label>Requests:</label>
   <app-requests></app-requests><br>
 
 
     <div class="example-button-row">
-      <button mat-button color="primary">Submit</button>
+      <button mat-button color="primary" (click)="submit()">Submit</button>
     </div>
+
+  <div [innerHTML]="result"></div>
+  <mat-progress-bar mode="determinate" [value]="probingProgress"></mat-progress-bar><br>
+  <mat-progress-bar mode = "determinate" [value]="aligningProgress"></mat-progress-bar>
 
 </div>

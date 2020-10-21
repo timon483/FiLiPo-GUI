@@ -12,6 +12,7 @@ export class ApisComponent {
   serverError = null;
   apis = null;
   databases = null;
+  selectedAPI = null;
 
   constructor( private http: HttpClient, private element: ElementRef) {
     console.log('test');

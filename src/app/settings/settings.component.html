@@ -111,8 +111,38 @@
         <mat-form-field class="source">
           <mat-label>Filter: </mat-label>
           <input matInput type="text" id="rule-filter" value="{{rule.filter}}">
-        </mat-form-field>
+        </mat-form-field><br>
+        <button mat-stroked-button color="warn" (click)="removeRule(rule.name)">Remove</button>
       </mat-expansion-panel>
+
+
+
+      <mat-expansion-panel *ngIf="isAddRuleset==true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>New Ruleset
+          </mat-panel-title>
+          <mat-panel-description>
+            Click to add a new ruleset
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-form-field class="source">
+          <mat-label>Name:</mat-label>
+          <input matInput type="text"  id="add-rule">
+        </mat-form-field><br>
+        <mat-form-field class="url">
+          <mat-label>Filter: </mat-label>
+          <input matInput type="text" id="add-rule-filter">
+        </mat-form-field><br>
+
+
+
+        <br>
+        <div class="button-row">
+          <button mat-stroked-button color="primary" (click)="saveNewRule()">Save</button>
+        </div>
+      </mat-expansion-panel>
+
+      <button mat-stroked-button color="primary" (click)="addNewRule()">Add</button>
 
       <div class="container">
         <button mat-stroked-button id="saveglobals" (click)="saveConfigs()" color="primary">Save</button>
@@ -252,7 +282,7 @@
         </mat-expansion-panel-header>
         <mat-grid-list cols="3" rowHeight="3:1">
           <mat-grid-tile *ngFor="let metric of similarityMetrics">
-            <mat-slide-toggle color="primary"  id="{{metric}}" checked="false">{{metric}}</mat-slide-toggle>
+            <mat-slide-toggle color="primary"  [checked]="metricSlider(metric)" (change)="editMetric(metric)">{{metric}}</mat-slide-toggle>
           </mat-grid-tile>
 
         </mat-grid-list>
@@ -265,7 +295,7 @@
 
     <mat-tab label="Secret">
 
-      <mat-grid-list cols="2" rowHeight="3:1">
+      <mat-grid-list cols="1" rowHeight="8:1">
         <mat-grid-tile *ngFor="let secret of secret">
           <mat-form-field>
             <mat-label>Name: </mat-label>
@@ -275,9 +305,22 @@
             <mat-label>Secret: </mat-label>
             <input matInput type="text" id="secret-secret" value="{{secret.secret}}">
           </mat-form-field>
+          <button mat-stroked-button color="warn" (click)="removeSecret(secret.name)">Remove</button>
+        </mat-grid-tile>
+        <mat-grid-tile *ngIf="isAddSecret==true">
+          <mat-form-field>
+            <mat-label>Name: </mat-label>
+            <input matInput type="text" id="add-secret-name">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Secret: </mat-label>
+            <input matInput type="text" id="add-secret-secret">
+          </mat-form-field>
+          <button mat-stroked-button color="primary" (click)="saveNewSecret()">Save</button>
         </mat-grid-tile>
       </mat-grid-list>
       <button mat-stroked-button color="primary" (click)="saveOtherConfigs()">Save</button>
+      <button mat-stroked-button color="primary" (click)="addSecret()">Add</button>
 
     </mat-tab>
 

@@ -15,6 +15,7 @@ export class DatabasesComponent {
   serverError = null;
   dbs = null;
   databases = null;
+  selectedDB = null;
 
   constructor( private http: HttpClient, private element: ElementRef) {
     this.getDatabases();
@@ -29,6 +30,9 @@ export class DatabasesComponent {
       this.serverError = true;
     });
   }
+
+
+
 
 
   ngOnInit() {

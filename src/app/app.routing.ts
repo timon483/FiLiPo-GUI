@@ -9,7 +9,7 @@ const routes: Routes =[
   {
     path: '',
     redirectTo: 'dashboard',
-    pathMatch: 'full',
+    pathMatch: 'full'
   }, {
     path: '',
     component: AdminLayoutComponent,
@@ -20,7 +20,8 @@ const routes: Routes =[
   }]},
   {
     path: '**',
-    redirectTo: 'dashboard'
+    redirectTo: 'dashboard',
+    runGuardsAndResolvers: 'always'
   }
 ];
 
@@ -28,9 +29,10 @@ const routes: Routes =[
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })
   ],
   exports: [
+    RouterModule
   ],
 })
 export class AppRoutingModule { }
