@@ -7,5 +7,6 @@ export const environment = {
   configURL : base_url + 'config',
   databaseURL: base_url + 'databases',
   secretURL: base_url + 'secret',
-  eventURL: base_url + 'events/*/'
+  eventURL: base_url + 'events/*/',
+  resultURL: base_url + 'results'
 };

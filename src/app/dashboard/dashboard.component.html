@@ -1,5 +1,4 @@
-<div class="panel-header panel-header-lg">
-
+<div class="panel-header panel-header">
   <h2>Welcome to FiLiPo</h2>
   <h3>Start the alignment here</h3>
 </div>
@@ -8,7 +7,6 @@
 
 <div class="main-content">
 
-
  <app-databases></app-databases>
   <br>
   <app-apis></app-apis><br>
@@ -16,12 +14,88 @@
   <app-requests></app-requests><br>
 
 
+
+
     <div class="example-button-row">
       <button mat-button color="primary" (click)="submit()">Submit</button>
     </div>
 
   <div [innerHTML]="result"></div>
-  <mat-progress-bar mode="determinate" [value]="probingProgress"></mat-progress-bar><br>
-  <mat-progress-bar mode = "determinate" [value]="aligningProgress"></mat-progress-bar>
+  <mat-progress-bar mode="determinate" *ngIf="probingPhase==true" [value]="probingProgress"></mat-progress-bar><br>
+  <mat-progress-bar mode = "determinate" *ngIf="aligningPhase==true" [value]="aligningProgress"></mat-progress-bar>
+
+  <button mat-stroked-button color="primary" (click)="showResults()" *ngIf="processFinished==true">Results</button>
+
+<div *ngIf="showingResults==true">
+  <div class="flex-container" type="button" (click)="showFurther()" *ngFor="let alignment of alignments">
+    <div class="dbFunction">{{trimPath(alignment.relation)}}</div>
+      <div class="flex-vertical">
+        <div class="flex-vertical" *ngFor="let path of alignment.path">
+        <div class="box2">
+          <mat-progress-bar [value]="computeConfidence(path.confidence)" color="primary"></mat-progress-bar>
+          <div class="dbFunction">{{path.path}}</div>
+        </div>
+        <div class="box2" value="{{alignment}}" *ngIf="showingFurther==true">
+          <div class="box3">Similarity Method:</div>
+          <div class="box3">{{path.similarityMethod}}</div>
+        </div>
+        <div class="box2" *ngIf="showingFurther==true">
+          <div class="box3">Confidence:</div>
+          <div class="box3">{{path.confidence}}</div>
+        </div>
+        <div class="box2" *ngIf="showingFurther==true">
+          <div class="box3">Data Availability:</div>
+          <div class="box3">{{path.dataAvailability}}</div>
+        </div>
+          <div class="box2" *ngIf="alignment.traversePath != null && showingFurther==true">
+            <div class="box3">Traverse Path:</div>
+            <div class="box3">{{alignment.traversePath}}</div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+  <!--<div *ngIf="showingResults==true">
+    <mat-expansion-panel hideToggle *ngFor="let alignment of alignments">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{alignment.relation}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Click for more information
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div *ngFor="let path of alignment.path">
+        <mat-grid-list cols="2" rowHeight="35px">
+          <mat-grid-tile>Path:</mat-grid-tile>
+          <mat-grid-tile>{{path.path}}</mat-grid-tile>
+          <mat-grid-tile>Similarity Method:</mat-grid-tile>
+          <mat-grid-tile>{{path.similarityMethod}}</mat-grid-tile>
+          <mat-grid-tile>Confidence:</mat-grid-tile>
+          <mat-grid-tile>{{path.confidence}}</mat-grid-tile>
+          <mat-grid-tile>Data Availability:</mat-grid-tile>
+          <mat-grid-tile>{{path.dataAvailability}}</mat-grid-tile>
+        </mat-grid-list>
+        <label>Path: </label>
+        <div>{{path.path}}</div>
+        <label>Similarity Method: </label>
+        <div>{{path.similarityMethod}}</div>
+        <label>Confidence: </label>
+        <div>{{path.confidence}}</div>
+        <label>Data Availability: </label>
+        <div>{{path.dataAvailability}}</div>
+      </div>
+      <div *ngIf="alignment.traversePath !=null">
+        <mat-grid-list cols="2" rowHeight="35px">
+          <mat-grid-tile>Traverse Path:</mat-grid-tile>
+          <mat-grid-tile>{{alignment.traversePath}}</mat-grid-tile>
+        </mat-grid-list>
+        <label>Traverse Path: </label>
+        <div>{{alignment.traversePath}}</div>
+      </div>
+    </mat-expansion-panel>
+
+  </div> -->
 
 </div>

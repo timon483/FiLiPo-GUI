@@ -12,6 +12,8 @@ import { ApisComponent } from './apis/apis.component';
 import { RequestsComponent } from './requests/requests.component';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { ResultsComponent } from './results/results.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   imports: [
@@ -20,7 +22,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     NgbModule,
     MatSelectModule,
     MatSliderModule,
-    MatGridListModule
+    MatGridListModule,
+    MatProgressBarModule
   ],
   declarations: [
     FooterComponent,
@@ -28,7 +31,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     SidebarComponent,
     DatabasesComponent,
     ApisComponent,
-    RequestsComponent
+    RequestsComponent,
+    ResultsComponent
   ],
   exports: [
     FooterComponent,
@@ -36,7 +40,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     SidebarComponent,
     DatabasesComponent,
     ApisComponent,
-    RequestsComponent
+    RequestsComponent,
+    ResultsComponent
   ]
 })
 export class ComponentsModule { }

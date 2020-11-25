@@ -26,32 +26,34 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 @NgModule({
-  imports: [
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    ComponentsModule,
-    RouterModule,
-    AppRoutingModule,
-    NgbModule,
-    ToastrModule.forRoot(),
-    MatSelectModule,
-    MatFormFieldModule,
-    MatSliderModule,
-    MatButtonModule,
-    MatGridListModule,
-    MatInputModule,
-    MatListModule,
-    MatTabsModule,
-    MatExpansionModule,
-    MatSlideToggleModule
-  ],
-  declarations: [
-    AppComponent,
-    AdminLayoutComponent
+    imports: [
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpClientModule,
+        ComponentsModule,
+        RouterModule,
+        AppRoutingModule,
+        NgbModule,
+        ToastrModule.forRoot(),
+        MatSelectModule,
+        MatFormFieldModule,
+        MatSliderModule,
+        MatButtonModule,
+        MatGridListModule,
+        MatInputModule,
+        MatListModule,
+        MatTabsModule,
+        MatExpansionModule,
+        MatSlideToggleModule
+    ],
+    declarations: [
+        AppComponent,
+        AdminLayoutComponent
 
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    ],
+    providers: [],
+    exports: [
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

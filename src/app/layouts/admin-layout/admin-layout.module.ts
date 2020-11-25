@@ -20,6 +20,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+//import {AppModule} from '../../app.module';
 
 @NgModule({
     imports: [
@@ -38,7 +39,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
         MatExpansionModule,
         MatButtonModule,
         MatSlideToggleModule,
-        MatProgressBarModule
+        MatProgressBarModule//,
+      //  AppModule
     ],
   declarations: [
     DashboardComponent,

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
+import {environment} from '../../../environments/environment';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-requests',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestsComponent implements OnInit {
 
-  requests = null;
+  requests = 25;
+  serverError = false;
 
-  constructor() { }
+  constructor(private http: HttpClient, private element: ElementRef) { }
+
+  changeRequests(event: any){
+    const newURL = environment.configURL + '?requests=' + event.value.toString();
+    this.http.get(newURL).subscribe(data => {
+    }, error => {
+      this.serverError = true;
+    });
+  }
 
   ngOnInit(): void {
   }

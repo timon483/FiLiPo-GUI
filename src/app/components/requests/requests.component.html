@@ -1,6 +1,7 @@
 <mat-slider
   thumbLabel
   [(value)] = "requests"
+  (input)="changeRequests($event)"
   tickInterval="1"
   min="25"
   max="100"></mat-slider>

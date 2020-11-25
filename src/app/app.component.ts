@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 
 
@@ -10,6 +10,11 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 export class AppComponent {
 
   mySubscription;
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunloadHandler(event) {
+    return false;
+  }
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute){
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;

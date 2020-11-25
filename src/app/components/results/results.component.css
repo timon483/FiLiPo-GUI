@@ -1,3 +1,5 @@
+
+
 h2, h3 {
   color: white;
   text-align: center;
@@ -57,6 +59,7 @@ mat-grid-list {
 .dbFunction {
   width: 20%;
   padding: 30px;
+  margin: 20px auto;
   box-sizing: border-box;
   border-radius: 50px 50px 50px 50px;
   background: #f5f5f5;
@@ -64,6 +67,7 @@ mat-grid-list {
   align-content: center;
   align-items: center;
   box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+  word-wrap: inherit;
 }
 
 
@@ -72,6 +76,7 @@ mat-grid-list {
   display: flex;
   align-items: center;
   padding: 10px;
+  cursor: pointer;
 
 }
 
@@ -111,4 +116,9 @@ mat-grid-tile {
 }
 
 
-
+.confidence {
+  position: absolute;
+  margin-top: 25px;
+  margin-left: 25%;
+  margin-right: 75%;
+}

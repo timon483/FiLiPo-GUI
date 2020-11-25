@@ -22,10 +22,13 @@ export class SettingsComponent implements OnInit {
   @Input() isAddData = false;
   @Input() isAddSecret = false;
   @Input() isAddRuleset = false;
+  strSim = null;
+  recSim = null;
   config = null;
   serverError = null;
   metrics = null;
   ruleset = null;
+  linkage = null;
   dbs = null;
   apis = null;
   databases = null;
@@ -70,6 +73,7 @@ export class SettingsComponent implements OnInit {
       this.config = JSON.parse(JSON.stringify(data));
      this.metrics = this.config.linkage_config.similarity_metrics;
      this.ruleset = this.config.ruleset;
+
     }, error => {
       this.serverError = true;
     });
@@ -137,7 +141,7 @@ export class SettingsComponent implements OnInit {
       return 'technical user';
     } else if (value === 2) {
       return 'evaluation';
-    } else if (value === 4) {
+    } else if (value === 3) {
       return 'demo';
     } else { return value; }
   }

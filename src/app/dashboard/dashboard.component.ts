@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {DatabasesComponent} from '../components/databases/databases.component';
@@ -6,6 +6,7 @@ import {ApisComponent} from '../components/apis/apis.component';
 import {RequestsComponent} from '../components/requests/requests.component';
 import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {SettingsComponent} from '../settings/settings.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,13 +24,27 @@ export class DashboardComponent implements OnInit {
   @ViewChild(RequestsComponent)
   private requests: RequestsComponent;
 
+  @ViewChild(SettingsComponent)
+  private settings: SettingsComponent;
+
   serverError = null;
   result = null;
   probingProgress = null;
   aligningProgress = null;
   message = null;
+  probingPhase = false;
+  aligningPhase = false;
+  alignmentResult = null;
+  processFinished = false;
+  globals = null;
+  alignments = null;
+  showingResults = false;
+  showingFurther = false;
+  recSim = null;
+  strSim = null;
 
   myWebSocket: WebSocketSubject<any> = webSocket('ws://localhost:7070/events/*');
+
 
 
   constructor(private http: HttpClient) {
@@ -44,8 +59,13 @@ export class DashboardComponent implements OnInit {
     console.log(this.database.selectedDB);
     console.log(this.apis.selectedAPI);
     console.log(this.requests.requests);
+    console.log(this.strSim);
+
+
 
     this.myWebSocket.next(this.database.selectedDB + ' ' + this.apis.selectedAPI + ' ' + this.requests.requests);
+
+    this.probingPhase = true;
 
 
     this.myWebSocket.subscribe(
@@ -58,7 +78,18 @@ export class DashboardComponent implements OnInit {
             this.probingProgress = this.message.current * 100 / this.message.max;
           }
           if (this.message.author === 'AligningPhase') {
+            this.probingPhase = false;
+            this.aligningPhase = true;
             this.aligningProgress = this.message.current * 100 / this.message.max;
+          }
+
+          if (this.message.author === 'Result'){
+            this.processFinished = true;
+            this.alignmentResult = JSON.parse(this.message.message);
+            this.globals = this.alignmentResult.globals;
+            this.alignments = this.alignmentResult.inputRelations[0].alignments;
+            console.log(this.globals);
+            console.log(this.alignments);
           }
         }
       },
@@ -82,7 +113,37 @@ export class DashboardComponent implements OnInit {
 
   }
 
+
+  showResults() {
+    this.showingResults = true;
+  }
+
+  showFurther() {
+    if (this.showingFurther == false) {
+      this.showingFurther = true;
+    } else {
+      this.showingFurther = false;
+    }
+  }
+
+  trimPath(path: string){
+    if (path.includes('#')) {
+      return path.substring(path.lastIndexOf('#') + 1);
+    } else {
+      return path.substring(path.lastIndexOf('/') + 1);
+    }
+  }
+
+  computeConfidence(confidence){
+    return confidence * 100;
+  }
+
+
+
   ngOnInit() {
 }
+
+
+
 
 }
