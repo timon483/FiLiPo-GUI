@@ -73,6 +73,8 @@ export class SettingsComponent implements OnInit {
       this.config = JSON.parse(JSON.stringify(data));
      this.metrics = this.config.linkage_config.similarity_metrics;
      this.ruleset = this.config.ruleset;
+     this.strSim = this.config.linkage_config.string_similarity;
+     this.recSim = this.config.linkage_config.record_similarity;
 
     }, error => {
       this.serverError = true;

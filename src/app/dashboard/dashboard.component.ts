@@ -40,30 +40,28 @@ export class DashboardComponent implements OnInit {
   alignments = null;
   showingResults = false;
   showingFurther = false;
-  recSim = null;
-  strSim = null;
 
   myWebSocket: WebSocketSubject<any> = webSocket('ws://localhost:7070/events/*');
 
 
 
-  constructor(private http: HttpClient) {
-
-
+  constructor() {
 
   }
-
 
 
   submit() {
     console.log(this.database.selectedDB);
     console.log(this.apis.selectedAPI);
     console.log(this.requests.requests);
-    console.log(this.strSim);
+    console.log(this.settings.strSim);
+    console.log(this.settings.recSim);
 
 
 
-    this.myWebSocket.next(this.database.selectedDB + ' ' + this.apis.selectedAPI + ' ' + this.requests.requests);
+
+    this.myWebSocket.next(this.database.selectedDB + ' ' + this.apis.selectedAPI + ' ' + this.requests.requests +
+    ' ' + this.settings.strSim + ' ' + this.settings.recSim);
 
     this.probingPhase = true;
 
@@ -99,18 +97,6 @@ export class DashboardComponent implements OnInit {
       () => console.log('complete')
       // Called when connection is closed (for whatever reason)
     );
-
-
-    /*if (this.message != null) {
-      if (this.message.author === 'Server') {
-        this.result = JSON.stringify(this.message);
-      }
-      if (this.message.author === 'ProgressBar') {
-        this.progress = this.message.current;
-      }
-    }*/
-
-
   }
 
 

@@ -14,6 +14,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { ResultsComponent } from './results/results.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatSelectModule,
     MatSliderModule,
     MatGridListModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatButtonModule
   ],
   declarations: [
     FooterComponent,

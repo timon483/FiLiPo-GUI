@@ -2,6 +2,8 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {keyframes} from '@angular/animations';
+import validate = WebAssembly.validate;
 
 @Component({
   selector: 'app-results',
@@ -11,12 +13,15 @@ import {Router} from '@angular/router';
 export class ResultsComponent implements OnInit {
 
   results = null;
-  alignments = null;
+  alignment: any[];
   globals = null;
   serverError = false;
   showingFurther = false;
   zerowidthSpace = '\u200b';
   comma = '.';
+  resultstmp = null;
+  showAlignment = null;
+
 
 
   constructor(private http: HttpClient, private element: ElementRef, private router: Router) {
@@ -28,8 +33,16 @@ export class ResultsComponent implements OnInit {
   getResults() {
     this.http.get(environment.resultURL).subscribe(data => {
       this.results = JSON.parse(JSON.stringify(data));
+      this.resultstmp = this.results.result;
       this.globals = this.results.globals;
-      this.alignments = this.results.inputRelations[0].alignments;
+     // this.alignment.push(this.resultstmp[0].value.inputRelations[0].alignments);
+   //   console.log(this.alignment);
+
+      
+      this.showAlignment = new Map();
+      for (let i = 0; i < this.resultstmp.length; i++){
+        this.showAlignment.set(this.resultstmp[i].name, false);
+      }
 
     }, error => {
       this.serverError = true;
@@ -46,8 +59,10 @@ export class ResultsComponent implements OnInit {
   trimPath(path: string){
     if (path.includes('#')) {
       return path.substring(path.lastIndexOf('#') + 1);
-    } else {
+    } else if (path.includes('/')) {
       return path.substring(path.lastIndexOf('/') + 1);
+    } else {
+      return path.substring(path.lastIndexOf('\\') + 1);
     }
   }
 
@@ -59,6 +74,20 @@ export class ResultsComponent implements OnInit {
     return path.replace(this.comma, this.comma + this.zerowidthSpace);
   }
 
+  showAlignmentFunc(name){
+    let tmp = this.showAlignment.get(name);
+    this.showAlignment.forEach((value, key) => {
+      this.showAlignment.set(key, false);
+    });
+
+    if (tmp === false) {
+      this.showAlignment.set(name, true);
+    }
+  }
+
+  getAlignment(name){
+    return this.showAlignment.get(name);
+  }
 
   ngOnInit(): void {
   }
