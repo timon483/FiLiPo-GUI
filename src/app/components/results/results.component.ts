@@ -13,7 +13,6 @@ import validate = WebAssembly.validate;
 export class ResultsComponent implements OnInit {
 
   results = null;
-  alignment: any[];
   globals = null;
   serverError = false;
   showingFurther = false;
@@ -21,6 +20,7 @@ export class ResultsComponent implements OnInit {
   comma = '.';
   resultstmp = null;
   showAlignment = null;
+  showFurtherInformation = null;
 
 
 
@@ -35,14 +35,30 @@ export class ResultsComponent implements OnInit {
       this.results = JSON.parse(JSON.stringify(data));
       this.resultstmp = this.results.result;
       this.globals = this.results.globals;
-     // this.alignment.push(this.resultstmp[0].value.inputRelations[0].alignments);
-   //   console.log(this.alignment);
 
-      
+
       this.showAlignment = new Map();
       for (let i = 0; i < this.resultstmp.length; i++){
         this.showAlignment.set(this.resultstmp[i].name, false);
       }
+
+      this.showFurtherInformation = new Map();
+
+      for (let i = 0; i < this.resultstmp.length; i++) {
+        const tmpAlignment = this.resultstmp[i].value.inputRelations[0].alignments;
+
+        for (let k = 0; k < tmpAlignment.length; k++) {
+
+          const tmpRelations = tmpAlignment[k].relation;
+          const tmpTitle = this.createPath(tmpAlignment[k].traversePath, tmpRelations);
+          this.showFurtherInformation.set(tmpTitle, false);
+        }
+      }
+
+      console.log(this.showFurtherInformation);
+
+
+
 
     }, error => {
       this.serverError = true;
@@ -66,6 +82,15 @@ export class ResultsComponent implements OnInit {
     }
   }
 
+  createPath(traversePath: string, path: string){
+    if ( traversePath != null) {
+      return this.trimPath(traversePath) + this.comma + this.zerowidthSpace + this.trimPath(path);
+    }
+    else {
+      return this.trimPath(path);
+    }
+  }
+
   computeConfidence(confidence){
     return Math.round(confidence * 100);
   }
@@ -79,6 +104,9 @@ export class ResultsComponent implements OnInit {
     this.showAlignment.forEach((value, key) => {
       this.showAlignment.set(key, false);
     });
+    this.showFurtherInformation.forEach((value, key) => {
+      this.showFurtherInformation.set(key, false);
+    });
 
     if (tmp === false) {
       this.showAlignment.set(name, true);
@@ -87,6 +115,20 @@ export class ResultsComponent implements OnInit {
 
   getAlignment(name){
     return this.showAlignment.get(name);
+  }
+
+  showFurtherInformationFunc(name){
+    let tmp = this.showFurtherInformation.get(name);
+    this.showFurtherInformation.forEach((value, key) => {
+      this.showFurtherInformation.set(key, false);
+    });
+    if (tmp === false) {
+      this.showFurtherInformation.set(name, true);
+    }
+  }
+
+  getFurtherInformation(name){
+    return this.showFurtherInformation.get(name);
   }
 
   ngOnInit(): void {

@@ -76,13 +76,23 @@ mat-grid-list {
   display: flex;
   align-items: center;
   padding: 10px;
-  cursor: pointer;
 
 }
 
 .flex-vertical {
   display: flex;
   align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: fit-content;
+  width: 100%;
+  justify-content: space-around;
+  margin: 10px 0px 10px 0px;
+}
+
+.flex-vertical-globals {
+  display: flex;
+  align-items: first;
   flex-direction: column;
   flex-wrap: wrap;
   width: fit-content;
@@ -109,6 +119,12 @@ mat-grid-list {
   margin-left: 10px;
 }
 
+.box3-globals {
+  width: 50%;
+  margin-left: 10px;
+  font-weight: bolder;
+}
+
 mat-grid-tile {
   font-size: large;
   background-color: #FF3636;
@@ -121,4 +137,9 @@ mat-grid-tile {
   margin-top: 25px;
   margin-left: 25%;
   margin-right: 75%;
+}
+
+.expandnotification {
+  opacity: 0.5;
+  cursor: pointer;
 }

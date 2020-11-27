@@ -283,12 +283,12 @@
         </mat-expansion-panel-header>
         <mat-grid-list cols="3" rowHeight="3:1">
           <mat-grid-tile *ngFor="let metric of similarityMetrics">
-            <mat-slide-toggle color="primary"  [checked]="metricSlider(metric)" (change)="editMetric(metric)">{{metric}}</mat-slide-toggle>
+            <mat-slide-toggle color="primary"  class="metrics"  [checked]="metricSlider(metric)" (change)="editMetric(metric)">{{metric}}</mat-slide-toggle>
           </mat-grid-tile>
-
         </mat-grid-list>
       </mat-expansion-panel>
       <br>
+
       <div class="container">
       <button mat-stroked-button color="primary" (click)="saveOtherConfigs()">Save</button>
       </div>

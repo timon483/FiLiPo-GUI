@@ -10,14 +10,16 @@
   <div *ngFor="let result of resultstmp">
     <button mat-stroked-button color="primary" (click)="showAlignmentFunc(result.name)">{{trimPath(result.name)}}</button>
   </div>
+
   <div *ngFor="let result of resultstmp">
     <div *ngIf="getAlignment(result.name)==true">
-  <div class="flex-vertical">
+      <div class="box3">Globals: </div>
+  <div class="flex-vertical-globals">
     <div class="flex-container">
       <div class="box3">Database:</div>
-      <div class="box3">{{result.value.globals.dbName}}</div>
+      <div class="box3-globals">{{result.value.globals.dbName}}</div>
       <div class="box3">API:</div>
-      <div class="box3">{{result.value.globals.apiName}}</div>
+      <div class="box3-globals">{{result.value.globals.apiName}}</div>
     </div>
     <div class="flex-container">
       <div class="box3">String similarity:</div>
@@ -32,8 +34,8 @@
       <div class="box3">{{result.value.globals.sampleSize}}</div>
     </div>
   </div>
-    <div class="flex-container" type="button" (click)="showFurther()" *ngFor="let alignment of result.value.inputRelations[0].alignments">
-      <div class="dbFunction"><div *ngIf="alignment.traversePath != null">{{trimPath(alignment.traversePath)}}.</div>{{trimPath(alignment.relation)}}</div>
+    <div class="flex-container" type="button" (click)="showFurtherInformationFunc(createPath(alignment.traversePath, alignment.relation))" *ngFor="let alignment of result.value.inputRelations[0].alignments">
+       <div class="dbFunction">{{createPath(alignment.traversePath, alignment.relation)}}</div>
       <div class="flex-vertical">
         <div class="flex-vertical" *ngFor="let path of alignment.path">
           <div class="box2">
@@ -41,9 +43,9 @@
             <div class="confidence">{{computeConfidence(path.confidence)}}</div>
             <div class="dbFunction">{{reformatPath(path.path)}}</div>
           </div>
-          <div class="flex-vertical" *ngIf="showingFurther==false">Click to expand:
+          <div class="flex-vertical" *ngIf="getFurtherInformation(createPath(alignment.traversePath, alignment.relation))==false" class="expandnotification">Click to expand
           </div>
-          <div class="flex-vertical" *ngIf="showingFurther==true">
+          <div class="flex-vertical" *ngIf="getFurtherInformation(createPath(alignment.traversePath, alignment.relation))==true">
             <div class="box2" >
               <div class="box3">Similarity Method:</div>
               <div class="box3">{{path.similarityMethod}}</div>
