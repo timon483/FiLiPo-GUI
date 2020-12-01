@@ -8,6 +8,7 @@ import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {SettingsComponent} from '../settings/settings.component';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -38,8 +39,6 @@ export class DashboardComponent implements OnInit {
   processFinished = false;
   globals = null;
   alignments = null;
-  showingResults = false;
-  showingFurther = false;
 
   myWebSocket: WebSocketSubject<any> = webSocket('ws://localhost:7070/events/*');
 
@@ -99,33 +98,6 @@ export class DashboardComponent implements OnInit {
       // Called when connection is closed (for whatever reason)
     );
   }
-
-
-  showResults() {
-    this.showingResults = true;
-  }
-
-  showFurther() {
-    if (this.showingFurther == false) {
-      this.showingFurther = true;
-    } else {
-      this.showingFurther = false;
-    }
-  }
-
-  trimPath(path: string){
-    if (path.includes('#')) {
-      return path.substring(path.lastIndexOf('#') + 1);
-    } else {
-      return path.substring(path.lastIndexOf('/') + 1);
-    }
-  }
-
-  computeConfidence(confidence){
-    return confidence * 100;
-  }
-
-
 
   ngOnInit() {
 }

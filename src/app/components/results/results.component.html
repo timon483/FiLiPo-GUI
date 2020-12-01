@@ -34,7 +34,7 @@
       <div class="box3">{{result.value.globals.sampleSize}}</div>
     </div>
   </div>
-    <div class="flex-container" type="button" (click)="showFurtherInformationFunc(createPath(alignment.traversePath, alignment.relation))" *ngFor="let alignment of result.value.inputRelations[0].alignments">
+    <div class="flex-container" *ngFor="let alignment of result.value.inputRelations[0].alignments">
        <div class="dbFunction">{{createPath(alignment.traversePath, alignment.relation)}}</div>
       <div class="flex-vertical">
         <div class="flex-vertical" *ngFor="let path of alignment.path">
@@ -43,7 +43,7 @@
             <div class="confidence">{{computeConfidence(path.confidence)}}</div>
             <div class="dbFunction">{{reformatPath(path.path)}}</div>
           </div>
-          <div class="flex-vertical" *ngIf="getFurtherInformation(createPath(alignment.traversePath, alignment.relation))==false" class="expandnotification">Click to expand
+          <div class="flex-vertical" type="button" (click)="showFurtherInformationFunc(createPath(alignment.traversePath, alignment.relation))" class="expandnotification">Click to expand
           </div>
           <div class="flex-vertical" *ngIf="getFurtherInformation(createPath(alignment.traversePath, alignment.relation))==true">
             <div class="box2" >

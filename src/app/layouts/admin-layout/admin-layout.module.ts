@@ -20,28 +20,33 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
 //import {AppModule} from '../../app.module';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule.forChild(AdminLayoutRoutes),
-        FormsModule,
-        ChartsModule,
-        NgbModule,
-        ToastrModule.forRoot(),
-        ComponentsModule,
-        MatGridListModule,
-        MatSliderModule,
-        MatInputModule,
-        MatListModule,
-        MatTabsModule,
-        MatExpansionModule,
-        MatButtonModule,
-        MatSlideToggleModule,
-        MatProgressBarModule//,
-      //  AppModule
-    ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(AdminLayoutRoutes),
+    FormsModule,
+    ChartsModule,
+    NgbModule,
+    ToastrModule.forRoot(),
+    ComponentsModule,
+    MatGridListModule,
+    MatSliderModule,
+    MatInputModule,
+    MatListModule,
+    MatTabsModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatSlideToggleModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatTooltipModule,
+//,
+    //  AppModule
+  ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,

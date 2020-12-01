@@ -189,6 +189,7 @@ export class SettingsComponent implements OnInit {
       this.serverError = true;
     });
     console.log(newURL);
+    this.router.navigateByUrl('/settings');
 
   }
 
@@ -210,6 +211,7 @@ export class SettingsComponent implements OnInit {
       this.serverError = true;
     });
     console.log(newURL);
+    this.router.navigateByUrl('/settings');
   }
 
   addAPI() {
@@ -235,6 +237,7 @@ export class SettingsComponent implements OnInit {
     }, error => {
       this.serverError = true;
     });
+    this.router.navigateByUrl('/settings');
 
   }
 
@@ -246,6 +249,7 @@ export class SettingsComponent implements OnInit {
     }, error => {
       this.serverError = true;
     });
+    this.router.navigateByUrl('/settings');
   }
 
   addDatabase() {
@@ -263,6 +267,7 @@ export class SettingsComponent implements OnInit {
     }, error => {
       this.serverError = true;
     });
+    this.router.navigateByUrl('/settings');
 
   }
 
@@ -274,6 +279,7 @@ export class SettingsComponent implements OnInit {
     }, error => {
       this.serverError = true;
     });
+    this.router.navigateByUrl('/settings');
   }
 
   addSecret(){

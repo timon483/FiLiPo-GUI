@@ -12,8 +12,8 @@
           <mat-form-field>
             <mat-label>Logpath:</mat-label>
             <input matInput type="text" id="logpath" name="logpath" value="{{config.globals.logpath}}">
-          </mat-form-field>
-        </mat-grid-tile>
+            </mat-form-field>
+           </mat-grid-tile>
 
         <mat-grid-tile>
           <mat-form-field>
@@ -92,7 +92,11 @@
         </mat-grid-tile>
 
 
+
       </mat-grid-list>
+      <div class="container">
+      <button mat-stroked-button id="saveglobals" (click)="saveConfigs()" color="primary">Save</button>
+</div>
       <br>
       <mat-label>Ruleset: </mat-label>
 
@@ -145,9 +149,7 @@
 
       <button mat-stroked-button color="primary" (click)="addNewRule()">Add</button>
 
-      <div class="container">
-        <button mat-stroked-button id="saveglobals" (click)="saveConfigs()" color="primary">Save</button>
-      </div>
+
 
     </mat-tab>
 
@@ -272,6 +274,10 @@
 
     </mat-grid-list>
 
+      <div class="container">
+        <button mat-stroked-button color="primary" (click)="saveOtherConfigs()">Save</button>
+      </div>
+
       <mat-expansion-panel hideToggle>
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -289,9 +295,7 @@
       </mat-expansion-panel>
       <br>
 
-      <div class="container">
-      <button mat-stroked-button color="primary" (click)="saveOtherConfigs()">Save</button>
-      </div>
+
     </mat-tab>
 
     <mat-tab label="Secret">
@@ -510,7 +514,7 @@
         <mat-expansion-panel hideToggle *ngIf="isAddData == true">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              test
+
             </mat-panel-title>
             <mat-panel-description>
               Click to change the settings
