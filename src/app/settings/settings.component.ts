@@ -56,6 +56,7 @@ export class SettingsComponent implements OnInit {
     'Sorensen-Dice 2-shingles Normalized', 'Sorensen-Dice 3-shingles Normalized', 'Sorensen-Dice 4-shingles Normalized', 'Sorensen-Dice 5-shingles Normalized',
     'Overlap 2-shingles', 'Overlap 3-shingles', 'Overlap 4-shingles', 'Overlap 5-shingles',
     'Overlap 2-shingles Normalized', 'Overlap 3-shingles Normalized', 'Overlap 4-shingles Normalized', 'Overlap 5-shingles Normalized'];
+  addSelection = false;
 
 
 
@@ -101,6 +102,8 @@ export class SettingsComponent implements OnInit {
 
   addMetric(metric: string){
     const newURL = environment.configURL + '?addMetric=' + metric;
+    this.config.linkage_config.similarity_metrics.push(metric);
+
     this.http.get(newURL).subscribe(data => {
     }, error => {
       this.serverError = true;
@@ -109,6 +112,7 @@ export class SettingsComponent implements OnInit {
 
   removeMetric(metric: string){
     const newURL = environment.configURL + '?removeMetric=' + metric;
+    this.config.linkage_config.similarity_metrics.pop(metric);
     this.http.get(newURL).subscribe(data => {
     }, error => {
       this.serverError = true;
@@ -156,6 +160,10 @@ export class SettingsComponent implements OnInit {
     this.config.globals.mode = event.value.toString();
   }
 
+  changeSupportMode(event: any){
+    this.config.linkage_config.support_mode = event.value.toString();
+  }
+
   changeStringSimilarity(event: any) {
     this.config.linkage_config.string_similarity = event.value.toString();
   }
@@ -170,6 +178,110 @@ export class SettingsComponent implements OnInit {
 
   changeErrorThreshold(event: any) {
     this.config.linkage_config.error_threshold = event.value.toString();
+  }
+
+  editDB(dbLabel: string, index ) {
+    const label = (<HTMLInputElement>document.getElementById('db-label' + index )).value;
+    const source = (<HTMLInputElement>document.getElementById('db-source' + index )).value;
+    const url = (<HTMLInputElement>document.getElementById('db-url' + index )).value;
+
+    const newURL = environment.databaseURL + '?edit=database' + '&oldlabel=' + dbLabel + '&label=' + label + '&url=' + url + '&source=' + source;
+    this.http.get(newURL).subscribe(data => {
+    }, error => {
+      this.serverError = true;
+    });
+
+    this.router.navigateByUrl('/settings');
+
+
+  }
+
+  editSelectionForAPI(APILabel: string, APIindex, selectionIndex){
+
+    const match = (<HTMLInputElement>document.getElementById('selection-minsupport-match' + APIindex + selectionIndex)).value;
+    const confidence = (<HTMLInputElement>document.getElementById('selection-confidence' + APIindex + selectionIndex )).value;
+    const nonmatch = (<HTMLInputElement>document.getElementById('selection-minsupport-nonmatch' + APIindex + selectionIndex )).value;
+    const type = (<HTMLInputElement>document.getElementById('selection-type' + APIindex + selectionIndex )).value;
+    const support = (<HTMLInputElement>document.getElementById('selection-support' + APIindex + selectionIndex )).value;
+
+    const newURL = environment.databaseURL + '?editSelectionFor=' + APILabel +  '&selectionIndex=' + selectionIndex  + '&match=' + match + '&nonmatch=' + nonmatch +
+      '&confidence=' + confidence + '&type=' + type + '&support=' + support;
+
+    this.http.get(newURL).subscribe(data => {
+    }, error => {
+      this.serverError = true;
+    });
+
+    this.router.navigateByUrl('/settings');
+
+  }
+
+  removeSelection(APILabel: string, APIindex, selectionIndex){
+    const newURL = environment.databaseURL + '?removeSelectionFor=' + APILabel + '&selectionIndex=' + selectionIndex;
+    console.log(selectionIndex);
+
+
+    this.http.get(newURL).subscribe(data => {
+    }, error => {
+      this.serverError = true;
+    });
+
+    this.router.navigateByUrl('/settings');
+
+  }
+
+  addNewSelection(){
+    this.addSelection = true;
+
+
+
+  }
+
+  cancelAddingSelection(){
+    this.addSelection = false;
+  }
+
+  saveNewSelection(APILabel: string, index){
+    console.log(APILabel);
+    const match = (<HTMLInputElement>document.getElementById('add-selection-minsupport-match' + index )).value;
+    const confidence = (<HTMLInputElement>document.getElementById('add-selection-confidence' + index )).value;
+    const nonmatch = (<HTMLInputElement>document.getElementById('add-selection-minsupport-nonmatch' + index )).value;
+    const type = (<HTMLInputElement>document.getElementById('add-selection-type' + index )).value;
+    const support = (<HTMLInputElement>document.getElementById('add-selection-support' + index )).value;
+
+    const newURL = environment.databaseURL + '?selectionFor=' + APILabel + '&match=' + match + '&nonmatch=' + nonmatch +
+      '&confidence=' + confidence + '&type=' + type + '&support=' + support;
+    this.http.get(newURL).subscribe(data => {
+    }, error => {
+      this.serverError = true;
+    });
+
+    this.addSelection = false;
+    this.router.navigateByUrl('/settings');
+
+
+  }
+
+  editAPI(APILabel: string, index){
+    const apilabel = (<HTMLInputElement>document.getElementById('api-label' + index )).value;
+    const name = (<HTMLInputElement>document.getElementById('api-name' + index )).value;
+    const url = (<HTMLInputElement>document.getElementById('api-url' + index )).value;
+    const paramname = (<HTMLInputElement>document.getElementById('parameters-name' + index )).value;
+    const paramstatus = (<HTMLInputElement>document.getElementById('parameters-status' + index )).value;
+    const paramtype = (<HTMLInputElement>document.getElementById('parameters-type' + index )).value;
+    const paramfilter = (<HTMLInputElement>document.getElementById('parameters-filter' + index )).value;
+    const format = (<HTMLInputElement>document.getElementById('api-format' + index )).value;
+
+    const newURL = environment.databaseURL + '?edit=API' + '&oldAPILabel=' + APILabel + '&Alabel=' + apilabel + '&Aname=' + name +
+      '&Aurl=' + url + '&parametersname=' + paramname + '&parametersstatus=' + paramstatus + '&parameterstype=' + paramtype
+      + '&parametersfilter=' + paramfilter + '&Aformat=' + format ;
+    this.http.get(newURL).subscribe(data => {
+    }, error => {
+      this.serverError = true;
+    });
+
+    this.router.navigateByUrl('/settings');
+
   }
 
   saveConfigs() {
@@ -200,7 +312,7 @@ export class SettingsComponent implements OnInit {
     this.config.linkage_config.traversal_depth = (<HTMLInputElement>document.getElementById('traversal_depth')).value;
     this.config.linkage_config.functionality_threshold = (<HTMLInputElement>document.getElementById('functionality_threshold')).value;
     this.config.linkage_config.classifier = (<HTMLInputElement>document.getElementById('classifier')).value;
-    this.config.linkage_config.support_mode = (<HTMLInputElement>document.getElementById('support_mode')).value;
+    //this.config.linkage_config.support_mode = (<HTMLInputElement>document.getElementById('support_mode')).value;
     this.config.linkage_config.min_support_match = (<HTMLInputElement>document.getElementById('min_support_match')).value;
     this.config.linkage_config.min_support_nonmatch = (<HTMLInputElement>document.getElementById('min_support_nonmatch')).value;
 
@@ -224,10 +336,11 @@ export class SettingsComponent implements OnInit {
     const format = (<HTMLInputElement>document.getElementById('add-api-format')).value;
     const url = (<HTMLInputElement>document.getElementById('add-api-url')).value;
 
-    const parametersname = + (<HTMLInputElement>document.getElementById('add-parameters-name')).value;
+    const parametersname = (<HTMLInputElement>document.getElementById('add-parameters-name')).value;
     const parameterstype = (<HTMLInputElement>document.getElementById('add-parameters-type')).value;
     const parametersstatus =  (<HTMLInputElement>document.getElementById('add-parameters-status')).value;
     const parametersfilter = (<HTMLInputElement>document.getElementById('add-parameters-filter')).value;
+
 
 
     const newURL = environment.databaseURL + '?Alabel=' + label + '&Aname=' + name + '&Aformat=' + format +
@@ -279,6 +392,16 @@ export class SettingsComponent implements OnInit {
     }, error => {
       this.serverError = true;
     });
+    this.router.navigateByUrl('/settings');
+  }
+
+  editDatabase(label: string, source: string, url: string) {
+    const newURL = environment.databaseURL + '?edit=database' + '&label=' + label + '&url=' + url + '&source=' + source;
+    this.http.get(newURL).subscribe(data => {
+    }, error => {
+      this.serverError = true;
+    });
+
     this.router.navigateByUrl('/settings');
   }
 

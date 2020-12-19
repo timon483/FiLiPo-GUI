@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {DatabasesComponent} from '../components/databases/databases.component';
@@ -7,6 +7,7 @@ import {RequestsComponent} from '../components/requests/requests.component';
 import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {SettingsComponent} from '../settings/settings.component';
+import {ResultsComponent} from '../components/results/results.component';
 
 
 @Component({
@@ -27,6 +28,9 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild(SettingsComponent)
   private settings: SettingsComponent;
+
+  @ViewChild(ResultsComponent)
+  private results: ResultsComponent;
 
   serverError = null;
   result = null;
@@ -103,6 +107,10 @@ export class DashboardComponent implements OnInit {
 }
 
 
+
+  resultsPopUp(){
+    window.open('/results', '_blank', 'toolbar=0, width=800, height=400' );
+  }
 
 
 }

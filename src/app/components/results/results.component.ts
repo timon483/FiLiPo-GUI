@@ -38,7 +38,7 @@ export class ResultsComponent implements OnInit {
 
 
       this.showAlignment = new Map();
-      for (let i = 0; i < this.resultstmp.length; i++){
+      for (let i = 0; i < this.resultstmp.length; i++) {
         this.showAlignment.set(this.resultstmp[i].name, false);
       }
 
@@ -72,7 +72,7 @@ export class ResultsComponent implements OnInit {
 
 
 
-  trimPath(path: string){
+  trimPath(path: string) {
     if (path.includes('#')) {
       return path.substring(path.lastIndexOf('#') + 1);
     } else if (path.includes('/')) {
@@ -82,25 +82,24 @@ export class ResultsComponent implements OnInit {
     }
   }
 
-  createPath(traversePath: string, path: string){
+  createPath(traversePath: string, path: string) {
     if ( traversePath != null) {
       return this.trimPath(traversePath) + this.comma + this.zerowidthSpace + this.trimPath(path);
-    }
-    else {
+    } else {
       return this.trimPath(path);
     }
   }
 
-  computeConfidence(confidence){
+  computeConfidence(confidence) {
     return Math.round(confidence * 100);
   }
 
-  reformatPath(path){
+  reformatPath(path) {
     return path.replace(this.comma, this.comma + this.zerowidthSpace);
   }
 
-  showAlignmentFunc(name){
-    let tmp = this.showAlignment.get(name);
+  showAlignmentFunc(name) {
+    const tmp = this.showAlignment.get(name);
     this.showAlignment.forEach((value, key) => {
       this.showAlignment.set(key, false);
     });
@@ -113,12 +112,12 @@ export class ResultsComponent implements OnInit {
     }
   }
 
-  getAlignment(name){
+  getAlignment(name) {
     return this.showAlignment.get(name);
   }
 
-  showFurtherInformationFunc(name){
-    let tmp = this.showFurtherInformation.get(name);
+  showFurtherInformationFunc(name) {
+    const tmp = this.showFurtherInformation.get(name);
     this.showFurtherInformation.forEach((value, key) => {
       this.showFurtherInformation.set(key, false);
     });
@@ -127,11 +126,17 @@ export class ResultsComponent implements OnInit {
     }
   }
 
-  getFurtherInformation(name){
+  getFurtherInformation(name) {
     return this.showFurtherInformation.get(name);
   }
 
   ngOnInit(): void {
   }
+
+
+    resultsPopUp(){
+      window.open('/results', '_blank', 'toolbar=0, width=800, height=400' );
+    }
+
 
 }

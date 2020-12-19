@@ -7,6 +7,8 @@
 
 <div class="main-content">
 
+  <button mat-stroked-button color="accent" (click)="resultsPopUp()">Open results in new Window</button>
+
   <div *ngFor="let result of resultstmp">
     <button mat-stroked-button color="primary" (click)="showAlignmentFunc(result.name)">{{trimPath(result.name)}}</button>
   </div>
@@ -68,60 +70,6 @@
     </div>
   </div>
   </div>
-
-  <!--<div class="flex-vertical">
-<div class="flex-container">
-  <div class="box3">Database:</div>
-  <div class="box3">{{globals.dbName}}</div>
-  <div class="box3">API:</div>
-  <div class="box3">{{globals.apiName}}</div>
-</div>
-   <div class="flex-container">
-  <div class="box3">String similarity:</div>
-  <div class="box3">{{globals.stringSimilarity}}</div>
-  <div class="box3">Probing size:</div>
-  <div class="box3">{{globals.probingSize}}</div>
-   </div>
-   <div class="flex-container">
-  <div class="box3">Record similarity:</div>
-  <div class="box3">{{globals.recordSimilarity}}</div>
-  <div class="box3">Sample size:</div>
-  <div class="box3">{{globals.sampleSize}}</div>
-</div>
- </div>
-
-<div class="flex-container" type="button" (click)="showFurther()" *ngFor="let alignment of alignments">
-  <div class="dbFunction"><div *ngIf="alignment.traversePath != null">{{trimPath(alignment.traversePath)}}.</div>{{trimPath(alignment.relation)}}</div>
-  <div class="flex-vertical">
-    <div class="flex-vertical" *ngFor="let path of alignment.path">
-      <div class="box2">
-        <mat-progress-bar [value]="computeConfidence(path.confidence)" color="primary"></mat-progress-bar>
-        <div class="confidence">{{computeConfidence(path.confidence)}}</div>
-        <div class="dbFunction">{{reformatPath(path.path)}}</div>
-      </div>
-      <div class="flex-vertical" *ngIf="showingFurther==false">Click to expand:
-      </div>
-      <div class="flex-vertical" *ngIf="showingFurther==true">
-      <div class="box2" >
-        <div class="box3">Similarity Method:</div>
-        <div class="box3">{{path.similarityMethod}}</div>
-      </div>
-      <div class="box2">
-        <div class="box3">Confidence:</div>
-        <div class="box3">{{path.confidence}}</div>
-      </div>
-      <div class="box2">
-        <div class="box3">Data Availability:</div>
-        <div class="box3">{{path.dataAvailability}}</div>
-      </div>
-      <div class="box2" *ngIf="alignment.traversePath != null">
-        <div class="box3">Traverse Path:</div>
-        <div class="box3">{{alignment.traversePath}}</div>
-      </div>
-      </div>
-    </div>
-  </div>
-</div>-->
 
 <div class="flex-container">
 <div class="box1">

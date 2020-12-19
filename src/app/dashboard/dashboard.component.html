@@ -23,14 +23,14 @@
 
 
     <div class="example-button-row">
-      <button mat-button color="primary" (click)="submit()">Submit</button>
+      <button mat-button color="primary" (click)="submit()">Start Alignment</button>
     </div>
 
   <div [innerHTML]="result"></div>
   <mat-progress-bar mode="determinate" *ngIf="probingPhase==true" [value]="probingProgress"></mat-progress-bar>
   <mat-progress-bar mode = "determinate" *ngIf="aligningPhase==true" [value]="aligningProgress"></mat-progress-bar>
 
-  <button mat-stroked-button color="primary" routerLink="/results" routerLinkActive="active"  *ngIf="processFinished==true">Results</button>
+  <button mat-stroked-button color="primary" (click)="resultsPopUp()"  *ngIf="processFinished==true">Results</button>
 
 
 

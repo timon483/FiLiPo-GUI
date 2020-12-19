@@ -12,41 +12,41 @@
           <mat-form-field>
             <mat-label>Logpath:</mat-label>
             <input matInput type="text" id="logpath" name="logpath" value="{{config.globals.logpath}}">
-            </mat-form-field>
-           </mat-grid-tile>
+          </mat-form-field>
+        </mat-grid-tile>
 
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>Outpath:</mat-label>
-            <input matInput type="text"   id="outpath" value="{{config.globals.outpath}}">
+            <input matInput type="text" id="outpath" value="{{config.globals.outpath}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>Dbpath:</mat-label>
-            <input matInput type="text"  id="dbpath" value="{{config.globals.dbpath}}">
+            <input matInput type="text" id="dbpath" value="{{config.globals.dbpath}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>Scpath:</mat-label>
-            <input matInput type="text"  id="scpath" value="{{config.globals.scpath}}">
+            <input matInput type="text" id="scpath" value="{{config.globals.scpath}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>Secret path:</mat-label>
-            <input matInput type="text"  id="secretpath"  value="{{config.globals.secretpath}}">
+            <input matInput type="text" id="secretpath" value="{{config.globals.secretpath}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>IPC:</mat-label>
-            <input matInput type="text"  id="ipc" value="{{config.globals.ipc}}">
+            <input matInput type="text" id="ipc" value="{{config.globals.ipc}}">
           </mat-form-field>
         </mat-grid-tile>
 
@@ -60,45 +60,54 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>Timeout:</mat-label>
-            <input matInput type="text"   id="timeout" value="{{config.globals.timeout}}">
+            <input matInput type="text" id="timeout" value="{{config.globals.timeout}}">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile>
-            <mat-label>Mode: </mat-label>
-            <mat-slider
-              class="mode"
-              id="mode"
-              (input)="changeMode($event)"
-              thumbLabel
-              [displayWith]="formatMode"
-              step="1"
-              min="0"
-              max="3"
-              value="{{config.globals.mode}}"></mat-slider>
-        </mat-grid-tile>
-
-       <mat-grid-tile>
-            <mat-label>Log level:</mat-label>
-            <mat-slider
-              id="loglevel"
-              (input)="changeLogLevel($event)"
-              thumbLabel
-              step="1"
-              min="0"
-              max="4"
-              value="{{config.globals.loglevel}}"></mat-slider>
+          <mat-label>Mode:</mat-label>
+          <mat-slider
+            class="mode"
+            id="mode"
+            (input)="changeMode($event)"
+            thumbLabel
+            [displayWith]="formatMode"
+            step="1"
+            min="0"
+            max="3"
+            value="{{config.globals.mode}}"></mat-slider>
+          <mat-icon class="now-ui-icons travel_info" matTooltip="
+          Technical user mode allows you to fine-tune the alignment (by changing string and record similarity
+          as well as error threshold)." matTooltipPosition="right"></mat-icon>
 
         </mat-grid-tile>
 
+        <mat-grid-tile>
+          <mat-label>Log level:</mat-label>
+          <mat-slider
+            id="loglevel"
+            (input)="changeLogLevel($event)"
+            thumbLabel
+            step="1"
+            min="0"
+            max="4"
+            value="{{config.globals.loglevel}}"></mat-slider>
+
+          <mat-icon class="now-ui-icons travel_info" matTooltip="
+           Specifies the level of detail in the log file (on the backend side)." matTooltipPosition="right"></mat-icon>
+
+        </mat-grid-tile>
 
 
       </mat-grid-list>
       <div class="container">
-      <button mat-stroked-button id="saveglobals" (click)="saveConfigs()" color="primary">Save</button>
-</div>
+        <button mat-stroked-button id="saveglobals" (click)="saveConfigs()" color="primary">Save</button>
+      </div>
       <br>
-      <mat-label>Ruleset: </mat-label>
+      <mat-label>Ruleset:</mat-label>
+      <mat-icon class="now-ui-icons travel_info" matTooltip="A set of rules on how
+      identifiers can be normalised (e.g. removing hyphens in ISBNs)." matTooltipPosition="right"></mat-icon>
+
 
       <mat-expansion-panel id="ruleset" hideToggle *ngFor="let rule of ruleset">
         <mat-expansion-panel-header>
@@ -111,15 +120,16 @@
         </mat-expansion-panel-header>
         <mat-form-field>
           <mat-label>Name:</mat-label>
-          <input matInput type="text"  id="rule-name" value="{{rule.name}}">
-        </mat-form-field><br>
+          <input matInput type="text" id="rule-name" value="{{rule.name}}">
+        </mat-form-field>
+        <br>
         <mat-form-field class="source">
-          <mat-label>Filter: </mat-label>
+          <mat-label>Filter:</mat-label>
           <input matInput type="text" id="rule-filter" value="{{rule.filter}}">
-        </mat-form-field><br>
+        </mat-form-field>
+        <br>
         <button mat-stroked-button color="warn" (click)="removeRule(rule.name)">Remove</button>
       </mat-expansion-panel>
-
 
 
       <mat-expansion-panel *ngIf="isAddRuleset==true">
@@ -132,13 +142,14 @@
         </mat-expansion-panel-header>
         <mat-form-field class="source">
           <mat-label>Name:</mat-label>
-          <input matInput type="text"  id="add-rule">
-        </mat-form-field><br>
+          <input matInput type="text" id="add-rule">
+        </mat-form-field>
+        <br>
         <mat-form-field class="url">
-          <mat-label>Filter: </mat-label>
+          <mat-label>Filter:</mat-label>
           <input matInput type="text" id="add-rule-filter">
-        </mat-form-field><br>
-
+        </mat-form-field>
+        <br>
 
 
         <br>
@@ -150,7 +161,6 @@
       <button mat-stroked-button color="primary" (click)="addNewRule()">Add</button>
 
 
-
     </mat-tab>
 
     <mat-tab label="Linkage configuration" id="linkage">
@@ -160,47 +170,63 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>Similarity requests:</mat-label>
-            <input matInput type="number"   id="similarity_requests" value="{{config.linkage_config.similarity_requests}}">
+            <input matInput type="number" id="similarity_requests"
+                   value="{{config.linkage_config.similarity_requests}}">
           </mat-form-field>
+          <mat-icon class="now-ui-icons travel_info" matTooltip="
+           Requests sent to a Web API (sample size)" matTooltipPosition="right"></mat-icon>
+
+
         </mat-grid-tile>
 
 
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>Candidate requests:</mat-label>
-            <input matInput type="number"  id="candidate_requests" placeholder="25" value="{{config.linkage_config.candidate_requests}}">
+            <input matInput type="number" id="candidate_requests" placeholder="25"
+                   value="{{config.linkage_config.candidate_requests}}">
           </mat-form-field>
+          <mat-icon class="now-ui-icons travel_info" matTooltip="
+           Probing size (number of initial requests)" matTooltipPosition="right"></mat-icon>
+
         </mat-grid-tile>
 
         <mat-grid-tile>
-            <mat-label >String similarity:</mat-label>
-            <mat-slider
-              id="string_similarity"
-              (input)="changeStringSimilarity($event)"
-              thumbLabel
-              step="0.1"
-              min="0"
-              max="1"
-              value="{{config.linkage_config.string_similarity}}"></mat-slider>
-        </mat-grid-tile>
-
-        <mat-grid-tile>
-
-            <mat-label>Record similarity:</mat-label>
-            <mat-slider
-              id="record_similarity"
-              (input)="changeRecordSimilarity($event)"
-              thumbLabel
-              step="0.1"
-              min="0"
-              max="1"
-              value="{{config.linkage_config.record_similarity}}"></mat-slider>
+          <mat-label>String similarity:</mat-label>
+          <mat-slider
+            id="string_similarity"
+            (input)="changeStringSimilarity($event)"
+            thumbLabel
+            step="0.1"
+            min="0"
+            max="1"
+            value="{{config.linkage_config.string_similarity}}"></mat-slider>
+          <mat-icon class="now-ui-icons travel_info" matTooltip="
+           How similar two string need to be in order to yield as equals (e.g. two titles)"
+                    matTooltipPosition="right"></mat-icon>
 
         </mat-grid-tile>
 
         <mat-grid-tile>
 
-            <mat-label>Distribution variance:</mat-label>
+          <mat-label>Record similarity:</mat-label>
+          <mat-slider
+            id="record_similarity"
+            (input)="changeRecordSimilarity($event)"
+            thumbLabel
+            step="0.1"
+            min="0"
+            max="1"
+            value="{{config.linkage_config.record_similarity}}"></mat-slider>
+          <mat-icon class="now-ui-icons travel_info" matTooltip="
+           Overlapping between data records in order to yield as valid response" matTooltipPosition="right"></mat-icon>
+
+
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+
+          <mat-label>Distribution variance:</mat-label>
           <mat-slider
             id="distribution_variance"
             (input)="changeDistributionVariance($event)"
@@ -209,70 +235,109 @@
             min="0"
             value="{{config.linkage_config.distribution_variance}}"
             max="1"></mat-slider>
+          <mat-icon class="now-ui-icons travel_info" matTooltip="
+           A model for the set of possible outcomes of any single experiment with the stated probability of success"
+                    matTooltipPosition="right"></mat-icon>
+
         </mat-grid-tile>
 
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>Candidate responses:</mat-label>
-            <input matInput type="number"   id="candidate_responses" value="{{config.linkage_config.candidate_responses}}">
+            <input matInput type="number" id="candidate_responses"
+                   value="{{config.linkage_config.candidate_responses}}">
           </mat-form-field>
+          <mat-icon class="now-ui-icons travel_info" matTooltip="
+           ???" matTooltipPosition="right"></mat-icon>
+
         </mat-grid-tile>
 
         <mat-grid-tile>
-            <mat-label>Error threshold:</mat-label>
-            <mat-slider
-              id="error_threshold"
-              (input)="changeErrorThreshold($event)"
-              thumbLabel
-              step="0.1"
-              min="0"
-              value="{{config.linkage_config.error_threshold}}"
-              max="1"></mat-slider>
+          <mat-label>Error threshold:</mat-label>
+          <mat-slider
+            id="error_threshold"
+            (input)="changeErrorThreshold($event)"
+            thumbLabel
+            step="0.1"
+            min="0"
+            value="{{config.linkage_config.error_threshold}}"
+            max="1"></mat-slider>
+          <mat-icon class="now-ui-icons travel_info" matTooltip="The probability of failure"
+                    matTooltipPosition="right"></mat-icon>
+
         </mat-grid-tile>
 
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>Traversal depth:</mat-label>
-            <input matInput type="number"  id="traversal_depth"  value="{{config.linkage_config.traversal_depth}}">
+            <input matInput type="number" id="traversal_depth" value="{{config.linkage_config.traversal_depth}}">
           </mat-form-field>
+          <mat-icon class="now-ui-icons travel_info" matTooltip="The depth of graph traversal"
+                    matTooltipPosition="right"></mat-icon>
+
         </mat-grid-tile>
 
         <mat-grid-tile>
-          <mat-form-field >
+          <mat-form-field>
             <mat-label>Functionality threshold:</mat-label>
-            <input matInput type="number" id="functionality_threshold"  value="{{config.linkage_config.functionality_threshold}}">
+            <input matInput type="number" id="functionality_threshold"
+                   value="{{config.linkage_config.functionality_threshold}}">
           </mat-form-field>
+          <mat-icon class="now-ui-icons travel_info" matTooltip=" Every relation that has a functionality
+          greater than 0.99 is considered as an identifier" matTooltipPosition="right"></mat-icon>
+
+
         </mat-grid-tile>
 
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>Classifier:</mat-label>
-            <input matInput type="text"   id="classifier" value="{{config.linkage_config.classifier}}">
+            <input matInput type="text" id="classifier" value="{{config.linkage_config.classifier}}">
           </mat-form-field>
+          <mat-icon class="now-ui-icons travel_info" matTooltip="Used to specify if the regular expression
+          approach (regex) will be used or the gradient
+          boosting classifier (gbc)" matTooltipPosition="right"></mat-icon>
+
         </mat-grid-tile>
 
+
         <mat-grid-tile>
-          <mat-form-field >
-            <mat-label>Support mode:</mat-label>
-            <input matInput type="number" id="support_mode"  value="{{config.linkage_config.support_mode}}">
-          </mat-form-field>
+
+          <mat-label>Support mode:</mat-label>
+          <mat-slider
+            id="support_mode"
+            (input)="changeSupportMode($event)"
+            thumbLabel
+            step="1"
+            min="0"
+            value="{{config.linkage_config.support_mode}}"
+            max="1"></mat-slider>
+          <mat-icon class="now-ui-icons travel_info" matTooltip="
+           ???" matTooltipPosition="right"></mat-icon>
+
         </mat-grid-tile>
+
 
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>Min support match:</mat-label>
-            <input matInput type="number"   id="min_support_match" value="{{config.linkage_config.min_support_match}}">
+            <input matInput type="number" id="min_support_match" value="{{config.linkage_config.min_support_match}}">
           </mat-form-field>
+          <mat-icon class="now-ui-icons travel_info" matTooltip="
+           ???" matTooltipPosition="right"></mat-icon>
         </mat-grid-tile>
 
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>Min support nonmatch:</mat-label>
-            <input matInput type="number"  id="min_support_nonmatch" value="{{config.linkage_config.min_support_nonmatch}}">
+            <input matInput type="number" id="min_support_nonmatch"
+                   value="{{config.linkage_config.min_support_nonmatch}}">
           </mat-form-field>
+          <mat-icon class="now-ui-icons travel_info" matTooltip="
+           ???" matTooltipPosition="right"></mat-icon>
         </mat-grid-tile>
 
-    </mat-grid-list>
+      </mat-grid-list>
 
       <div class="container">
         <button mat-stroked-button color="primary" (click)="saveOtherConfigs()">Save</button>
@@ -289,7 +354,8 @@
         </mat-expansion-panel-header>
         <mat-grid-list cols="3" rowHeight="3:1">
           <mat-grid-tile *ngFor="let metric of similarityMetrics">
-            <mat-slide-toggle color="primary"  class="metrics"  [checked]="metricSlider(metric)" (change)="editMetric(metric)">{{metric}}</mat-slide-toggle>
+            <mat-slide-toggle color="primary" class="metrics" [checked]="metricSlider(metric)"
+                              (change)="editMetric(metric)">{{metric}}</mat-slide-toggle>
           </mat-grid-tile>
         </mat-grid-list>
       </mat-expansion-panel>
@@ -303,22 +369,22 @@
       <mat-grid-list cols="1" rowHeight="8:1">
         <mat-grid-tile *ngFor="let secret of secret">
           <mat-form-field>
-            <mat-label>Name: </mat-label>
+            <mat-label>Name:</mat-label>
             <input matInput type="text" id="secret-name" value="{{secret.name}}">
           </mat-form-field>
           <mat-form-field>
-            <mat-label>Secret: </mat-label>
+            <mat-label>Secret:</mat-label>
             <input matInput type="text" id="secret-secret" value="{{secret.secret}}">
           </mat-form-field>
           <button mat-stroked-button color="warn" (click)="removeSecret(secret.name)">Remove</button>
         </mat-grid-tile>
         <mat-grid-tile *ngIf="isAddSecret==true">
           <mat-form-field>
-            <mat-label>Name: </mat-label>
+            <mat-label>Name:</mat-label>
             <input matInput type="text" id="add-secret-name">
           </mat-form-field>
           <mat-form-field>
-            <mat-label>Secret: </mat-label>
+            <mat-label>Secret:</mat-label>
             <input matInput type="text" id="add-secret-secret">
           </mat-form-field>
           <button mat-stroked-button color="primary" (click)="saveNewSecret()">Save</button>
@@ -331,42 +397,7 @@
 
     <mat-tab label="APIs">
       <mat-accordion>
-        <mat-expansion-panel hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>Selection:</mat-panel-title>
-
-
-          <mat-panel-description>
-            Selection settings for APIs:
-          </mat-panel-description>
-          </mat-expansion-panel-header>
-          <mat-form-field>
-            <mat-label>Min support match:</mat-label>
-            <input matInput type="text"  id="selection-minsupport-match" value="{{apis[0].selection[0].min_support_match}}">
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Confidence:</mat-label>
-            <input matInput type="text"  id="selection-confidence" value="{{apis[0].selection[0].confidence}}">
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Min support nonmatch:</mat-label>
-            <input matInput type="text"  id="selection-minsupport-nonmatch" value="{{apis[0].selection[0].min_support_nonmatch}}">
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Type:</mat-label>
-            <input matInput type="text"  id="selection-type" value="{{apis[0].selection[0].type}}">
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Support:</mat-label>
-            <input matInput type="text"   id="selection-support" value="{{apis[0].selection[0].support}}">
-          </mat-form-field>
-          <br>
-          <div class="button-row">
-            <button mat-stroked-button color="primary">Save</button>
-          </div>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel hideToggle *ngFor="let api of apis">
+        <mat-expansion-panel hideToggle *ngFor="let api of apis; let i=index">
           <mat-expansion-panel-header>
             <mat-panel-title>
               {{api.label}}
@@ -377,46 +408,140 @@
           </mat-expansion-panel-header>
           <mat-form-field class="source">
             <mat-label>Label:</mat-label>
-            <input matInput type="text"  id="api-label" value="{{api.label}}">
-          </mat-form-field><br>
-          <mat-form-field class="url">
-            <mat-label>Name: </mat-label>
-            <input matInput type="text" id="api-name" value="{{api.name}}">
-          </mat-form-field><br>
-          <mat-form-field class="url">
-            <mat-label>URL: </mat-label>
-            <input matInput type="text" placeholder="2" id="api-url" value="{{api.url}}">
-          </mat-form-field><br>
-          <mat-label>Parameters: </mat-label>
-          <div class="parameters-container"><mat-form-field>
-            <mat-label>Name:</mat-label>
-            <input matInput type="text" placeholder="2" id="parameters-name" value="{{api.parameters[0].name}}">
+            <input matInput type="text" id="api-label{{i}}" value="{{api.label}}">
           </mat-form-field>
+          <br>
+          <mat-form-field class="url">
+            <mat-label>Name:</mat-label>
+            <input matInput type="text" id="api-name{{i}}" value="{{api.name}}">
+          </mat-form-field>
+          <br>
+          <mat-form-field class="url">
+            <mat-label>URL:</mat-label>
+            <input matInput type="text" placeholder="2" id="api-url{{i}}" value="{{api.url}}">
+          </mat-form-field>
+          <br>
+          <mat-label>Parameters:</mat-label>
+          <div class="parameters-container">
+            <mat-form-field>
+              <mat-label>Name:</mat-label>
+              <input matInput type="text" placeholder="2" id="parameters-name{{i}}" value="{{api.parameters[0].name}}">
+            </mat-form-field>
             <mat-form-field class="url">
               <mat-label>Status:</mat-label>
-              <input matInput type="text" id="parameters-status" value="{{api.parameters[0].status}}">
+              <input matInput type="text" id="parameters-status{{i}}" value="{{api.parameters[0].status}}">
             </mat-form-field>
             <mat-form-field class="url">
               <mat-label>Type:</mat-label>
-              <input matInput type="text" width="50%" placeholder="2" id="parameters-type" value="{{api.parameters[0].type}}">
+              <input matInput type="text" width="50%" placeholder="2" id="parameters-type{{i}}"
+                     value="{{api.parameters[0].type}}">
             </mat-form-field>
             <mat-form-field class="filter">
               <mat-label>Filter:</mat-label>
-              <input matInput type="text" width="50%" placeholder="2" id="parameters-filter" value="{{api.parameters[0].filter}}">
+              <input matInput type="text" width="50%" placeholder="2" id="parameters-filter{{i}}"
+                     value="{{api.parameters[0].filter}}">
             </mat-form-field>
           </div>
           <mat-form-field class="url">
-            <mat-label>Format: </mat-label>
-            <input matInput type="text" placeholder="2" id="api-format" value="{{api.format}}">
+            <mat-label>Format:</mat-label>
+            <input matInput type="text" placeholder="2" id="api-format{{i}}" value="{{api.format}}">
           </mat-form-field>
+
+          <mat-accordion>
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Selections</mat-panel-title>
+                <mat-panel-description>
+                  Selection settings for APIs
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <mat-accordion>
+                <mat-expansion-panel hideToggle *ngFor="let selection of api.selection;let k=index">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>Selection {{k + 1}}</mat-panel-title>
+
+
+                    <mat-panel-description>
+                      Click to expand
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <mat-form-field>
+                    <mat-label>Min support match:</mat-label>
+                    <input matInput type="text" id="selection-minsupport-match{{i}}{{k}}"
+                           value="{{selection.min_support_match}}">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Confidence:</mat-label>
+                    <input matInput type="text" id="selection-confidence{{i}}{{k}}" value="{{selection.confidence}}">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Min support nonmatch:</mat-label>
+                    <input matInput type="text" id="selection-minsupport-nonmatch{{i}}{{k}}"
+                           value="{{selection.min_support_nonmatch}}">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Type:</mat-label>
+                    <input matInput type="text" id="selection-type{{i}}{{k}}" value="{{selection.type}}">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Support:</mat-label>
+                    <input matInput type="text" id="selection-support{{i}}{{k}}" value="{{selection.support}}">
+                  </mat-form-field>
+                  <br>
+                  <div class="button-row">
+                    <button mat-stroked-button color="primary" (click)="editSelectionForAPI(api.label, i, k)">Save
+                    </button>
+                    <button mat-stroked-button color="warn" (click)="removeSelection(api.label, i, k)">Remove</button>
+                  </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel hideToggle *ngIf="addSelection==true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>New Selection</mat-panel-title>
+                    <mat-panel-description>Click to add new selection</mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <mat-form-field>
+                    <mat-label>Min support match:</mat-label>
+                    <input matInput type="text" id="add-selection-minsupport-match{{i}}" value="">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Confidence:</mat-label>
+                    <input matInput type="text" id="add-selection-confidence{{i}}" value="">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Min support nonmatch:</mat-label>
+                    <input matInput type="text" id="add-selection-minsupport-nonmatch{{i}}" value="">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Type:</mat-label>
+                    <input matInput type="text" id="add-selection-type{{i}}" value="">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Support:</mat-label>
+                    <input matInput type="text" id="add-selection-support{{i}}" value="">
+                  </mat-form-field>
+                  <div class="button-row">
+                    <button mat-stroked-button color="primary" (click)="saveNewSelection(api.label, i)">Save new
+                      selection
+                    </button>
+                    <button mat-stroked-button color="primary" (click)="cancelAddingSelection()">Cancel</button>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <div class="button-row">
+                <button mat-stroked-button color="primary" (click)="addNewSelection()">Add selection</button>
+              </div>
+            </mat-expansion-panel>
+
+
+          </mat-accordion>
 
           <br>
           <div class="button-row">
-            <button mat-stroked-button color="primary">Save</button>
+            <button mat-stroked-button color="primary" (click)="editAPI(api.label, i)">Save</button>
             <button mat-stroked-button color="warn" (click)="removeAPI(api.label)">Remove</button>
           </div>
         </mat-expansion-panel>
-
 
 
         <mat-expansion-panel *ngIf="isChecked==true">
@@ -430,21 +555,25 @@
           </mat-expansion-panel-header>
           <mat-form-field class="source">
             <mat-label>Label:</mat-label>
-            <input matInput type="text"  id="add-api-label">
-          </mat-form-field><br>
-          <mat-form-field class="url">
-            <mat-label>Name: </mat-label>
-            <input matInput type="text" id="add-api-name">
-          </mat-form-field><br>
-          <mat-form-field class="url">
-            <mat-label>URL: </mat-label>
-            <input matInput type="text" placeholder="2" id="add-api-url">
-          </mat-form-field><br>
-          <mat-label>Parameters: </mat-label>
-          <div class="parameters-container"><mat-form-field>
-            <mat-label>Name:</mat-label>
-            <input matInput type="text" placeholder="2" id="add-parameters-name">
+            <input matInput type="text" id="add-api-label">
           </mat-form-field>
+          <br>
+          <mat-form-field class="url">
+            <mat-label>Name:</mat-label>
+            <input matInput type="text" id="add-api-name">
+          </mat-form-field>
+          <br>
+          <mat-form-field class="url">
+            <mat-label>URL:</mat-label>
+            <input matInput type="text" placeholder="2" id="add-api-url">
+          </mat-form-field>
+          <br>
+          <mat-label>Parameters:</mat-label>
+          <div class="parameters-container">
+            <mat-form-field>
+              <mat-label>Name:</mat-label>
+              <input matInput type="text" placeholder="2" id="add-parameters-name">
+            </mat-form-field>
             <mat-form-field class="url">
               <mat-label>Status:</mat-label>
               <input matInput type="text" id="add-parameters-status">
@@ -459,7 +588,7 @@
             </mat-form-field>
           </div>
           <mat-form-field class="url">
-            <mat-label>Format: </mat-label>
+            <mat-label>Format:</mat-label>
             <input matInput type="text" placeholder="2" id="add-api-format">
           </mat-form-field>
 
@@ -471,11 +600,7 @@
         </mat-expansion-panel>
 
 
-
       </mat-accordion>
-
-
-
 
 
       <button mat-stroked-button color="primary" (click)="addAPI()">Add</button>
@@ -484,7 +609,7 @@
 
     <mat-tab label="Databases">
       <mat-accordion>
-        <mat-expansion-panel hideToggle *ngFor="let db of dbs">
+        <mat-expansion-panel hideToggle *ngFor="let db of dbs;let i=index">
           <mat-expansion-panel-header>
             <mat-panel-title>
               {{db.label}}
@@ -495,18 +620,21 @@
           </mat-expansion-panel-header>
           <mat-form-field class="source">
             <mat-label>Label:</mat-label>
-            <input matInput type="text"  id="db-label" value="{{db.label}}">
-          </mat-form-field><br>
+            <input matInput type="text" id="db-label{{i}}" value="{{db.label}}">
+          </mat-form-field>
+          <br>
           <mat-form-field class="source">
-            <mat-label>Name: </mat-label>
-            <input matInput type="text" id="db-source" value="{{db.source}}">
-          </mat-form-field><br>
+            <mat-label>Source:</mat-label>
+            <input matInput type="text" id="db-source{{i}}" value="{{db.source}}">
+          </mat-form-field>
+          <br>
           <mat-form-field class="url">
-            <mat-label>URL: </mat-label>
-            <input matInput type="text" placeholder="2" id="db-url" value="{{db.url}}">
-          </mat-form-field><br>
+            <mat-label>URL:</mat-label>
+            <input matInput type="text" placeholder="2" id="db-url{{i}}" value="{{db.url}}">
+          </mat-form-field>
+          <br>
           <div class="button-row">
-            <button mat-stroked-button color="primary">Save</button>
+            <button mat-stroked-button color="primary" (click)="editDB(db.label, i)">Save</button>
             <button mat-stroked-button color="warn" (click)="removeDatabase(db.label)">Remove</button>
           </div>
         </mat-expansion-panel>
@@ -522,16 +650,19 @@
           </mat-expansion-panel-header>
           <mat-form-field class="source">
             <mat-label>Label:</mat-label>
-            <input matInput type="text"  id="add-db-label">
-          </mat-form-field><br>
+            <input matInput type="text" id="add-db-label">
+          </mat-form-field>
+          <br>
           <mat-form-field class="source">
-            <mat-label>Source: </mat-label>
+            <mat-label>Source:</mat-label>
             <input matInput type="text" id="add-db-source">
-          </mat-form-field><br>
+          </mat-form-field>
+          <br>
           <mat-form-field class="url">
-            <mat-label>URL: </mat-label>
+            <mat-label>URL:</mat-label>
             <input matInput type="text" placeholder="2" id="add-db-url">
-          </mat-form-field><br>
+          </mat-form-field>
+          <br>
           <div class="button-row">
             <button mat-stroked-button color="primary" (click)="saveNewData()">Save</button>
             <button mat-stroked-button color="warn">Remove</button>
@@ -544,7 +675,6 @@
       <button mat-stroked-button color="primary" (click)="addDatabase()">Add</button>
 
     </mat-tab>
-
 
 
   </mat-tab-group>
