@@ -156,6 +156,10 @@ export class SettingsComponent implements OnInit {
     this.config.globals.loglevel = event.value.toString();
   }
 
+  changeCandidateResponses(event: any){
+    this.config.linkage_config.candidate_responses = event.value.toString();
+  }
+
   changeMode(event: any) {
     this.config.globals.mode = event.value.toString();
   }
@@ -308,11 +312,9 @@ export class SettingsComponent implements OnInit {
   saveOtherConfigs() {
     this.config.linkage_config.similarity_requests = (<HTMLInputElement>document.getElementById('similarity_requests')).value;
     this.config.linkage_config.candidate_requests = (<HTMLInputElement>document.getElementById('candidate_requests')).value;
-    this.config.linkage_config.candidate_responses = (<HTMLInputElement>document.getElementById('candidate_responses')).value;
     this.config.linkage_config.traversal_depth = (<HTMLInputElement>document.getElementById('traversal_depth')).value;
     this.config.linkage_config.functionality_threshold = (<HTMLInputElement>document.getElementById('functionality_threshold')).value;
     this.config.linkage_config.classifier = (<HTMLInputElement>document.getElementById('classifier')).value;
-    //this.config.linkage_config.support_mode = (<HTMLInputElement>document.getElementById('support_mode')).value;
     this.config.linkage_config.min_support_match = (<HTMLInputElement>document.getElementById('min_support_match')).value;
     this.config.linkage_config.min_support_nonmatch = (<HTMLInputElement>document.getElementById('min_support_nonmatch')).value;
 
@@ -369,7 +371,7 @@ export class SettingsComponent implements OnInit {
     this.isAddData = true;
   }
 
-  saveNewData() {
+  saveNewDatabase() {
     const label = (<HTMLInputElement>document.getElementById('add-db-label')).value;
     const url = (<HTMLInputElement>document.getElementById('add-db-url')).value;
     const source = (<HTMLInputElement>document.getElementById('add-db-source')).value;

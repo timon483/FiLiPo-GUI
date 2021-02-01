@@ -241,7 +241,7 @@
 
         </mat-grid-tile>
 
-        <mat-grid-tile>
+        <!--<mat-grid-tile>
           <mat-form-field>
             <mat-label>Candidate responses:</mat-label>
             <input matInput type="number" id="candidate_responses"
@@ -249,6 +249,21 @@
           </mat-form-field>
           <mat-icon class="now-ui-icons travel_info" matTooltip="
            ???" matTooltipPosition="right"></mat-icon>
+
+        </mat-grid-tile> -->
+
+        <mat-grid-tile>
+          <mat-label>Candidate responses:</mat-label>
+          <mat-slider
+            id="candidate_responses_1"
+            (input)="changeCandidateResponses($event)"
+            thumbLabel
+            step="0.1"
+            min="0"
+            value="{{config.linkage_config.candidate_responses}}"
+            max="1"></mat-slider>
+          <mat-icon class="now-ui-icons travel_info" matTooltip="???"
+                    matTooltipPosition="right"></mat-icon>
 
         </mat-grid-tile>
 
@@ -664,7 +679,7 @@
           </mat-form-field>
           <br>
           <div class="button-row">
-            <button mat-stroked-button color="primary" (click)="saveNewData()">Save</button>
+            <button mat-stroked-button color="primary" (click)="saveNewDatabase()">Save</button>
             <button mat-stroked-button color="warn">Remove</button>
           </div>
         </mat-expansion-panel>
